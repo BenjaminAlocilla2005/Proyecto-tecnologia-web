@@ -84,14 +84,14 @@ button {
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 1.5px;
-  color: #245447;
+  color: #236933;
 }
 
 .hero h1 {
   margin: 0;
   font-size: clamp(38px, 6vw, 64px);
   line-height: 1.05;
-  color: #245447;
+  color: #236933;
 }
 
 .hero h1 span {
@@ -132,7 +132,7 @@ button {
   padding: 0 25px;
   border: none;
   border-radius: 8px;
-  background: #245447;
+  background: #236933;
   color: white;
 }
 
@@ -161,7 +161,7 @@ button {
 .see-more {
   border: none;
   background: transparent;
-  color: #245447;
+  color: #236933;
   font-weight: 700;
 }
 
@@ -189,7 +189,7 @@ button {
 }
 
 .category-card:hover {
-  border-color: #245447;
+  border-color: #236933;
 }
 
 .category-icon {
@@ -228,7 +228,7 @@ button {
 
 .product-category {
   margin: 0 0 8px;
-  color: #245447;
+  color: #236933;
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
@@ -256,7 +256,7 @@ button {
   padding: 5px 8px;
   border-radius: 20px;
   background: #e2eee9;
-  color: #245447;
+  color: #236933;
   font-size: 12px;
 }
 
@@ -266,7 +266,7 @@ button {
 
 .producer-section {
   padding: 80px 10%;
-  background: #245447;
+  background: #236933;
   color: white;
 }
 
@@ -277,7 +277,7 @@ button {
 }
 
 .producer-section .eyebrow {
-  color: #e5a93d;
+  color: #F0B448;
 }
 
 .producer-section h2 {
@@ -294,7 +294,7 @@ button {
   padding: 14px 25px;
   border: none;
   border-radius: 8px;
-  background: #e5a93d;
+  background: #F0B448;
   color: #202624;
   font-weight: 700;
 }
