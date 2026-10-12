@@ -29,20 +29,22 @@ VitrinaSur tiene como objetivo presentar una vitrina digital territorial capaz d
 -> Clonar el repositorio:
 git clone https://github.com/Bryan05U/Proyecto-tecnologia-web
 
+## Lo que se debe seguir después de Clonar el repositorio para la Instalación 
+
 Asegurate tener instalado Node.js antes de realizar los siguientes pasos
 
-## Primer Paso:
+Primer Paso:
 -> Ingresar al proyecto:
 cd proyecto-tecnologia-web
 
-## Segundo Paso:
+Segundo Paso:
 -> Ingresar a la carpeta de VitrinaSur:
 cd VitrinaSur
 
-## Tercer Paso:
+Tercer Paso:
 -> Instalar dependencias:
 npm install
 
-## Cuarto Paso:
+Cuarto Paso:
 -> Ejecutar servidor local:
 npm run dev
