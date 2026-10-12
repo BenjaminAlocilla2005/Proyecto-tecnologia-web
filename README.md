@@ -18,7 +18,7 @@ VitrinaSur tiene como objetivo presentar una vitrina digital territorial capaz d
 - Figma (storyboard, wireframes y mockups)
 
 ## Herramientas utilizadas para código
-- VS Code
+- Visual Studio Code
 - JavaScript
 - React
 - Vite
