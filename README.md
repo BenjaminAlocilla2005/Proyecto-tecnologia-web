@@ -18,7 +18,7 @@ VitrinaSur tiene como objetivo presentar una vitrina digital territorial capaz d
 - Figma (storyboard, wireframes y mockups)
 
 ## Herramientas utilizadas para código
-- VS Code
+- Visual Studio Code
 - JavaScript
 - React
 - Vite
@@ -32,6 +32,9 @@ git clone https://github.com/Bryan05U/Proyecto-tecnologia-web
 Asegurate tener instalado Node.js antes de realizar los siguientes pasos
 
 -> Ingresar al proyecto:
+cd proyecto-tecnologia-web
+
+-> Ingresar a la carpeta de VitrinaSur:
 cd vitrinasur
 
 -> Instalar dependencias:
