@@ -1,16 +1,44 @@
-# React + Vite
+# VitrinaSur
+<p align="center"> <img src="./image.png" alt="Logo VitrinaSur" width="200"> </p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+VitrinaSur es el nombre del proyecto de aplicación web móvil que estará enfocado en facilitar la visibilización y comercialización digital de productos y productores locales de Chiloé
 
-Currently, two official plugins are available:
+## Descripción del problema
+Chiloé tiene una oferta amplia de productos, oficios, gastronomía, artesanía y producción local; sin embargo, la oferta está fragmentada, dispersa y de muy baja digitalización comercial.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Objetivo
+VitrinaSur tiene como objetivo presentar una vitrina digital territorial capaz de conectar productores locales de Chiloé con compradores, lo que facilita la exploración de productos, el contacto y los prepedidos con retiro coordinado y satisfactorio, así evitando que sea un ecommerce genérico.
 
-## React Compiler
+## Integrantes
+- Bryan Cárcamo
+- Benjamín Alocilla
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Herramientas de diseño
+- Canva (utilizado para el logotipo)
+- Figma (storyboard, wireframes y mockups)
 
-## Expanding the Oxlint configuration
+## Herramientas utilizadas para código
+- Visual Studio Code
+- JavaScript
+- React
+- Vite
+- HTML5
+- CSS3
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Instalación
+-> Clonar el repositorio:
+git clone https://github.com/Bryan05U/Proyecto-tecnologia-web
+
+Asegurate tener instalado Node.js antes de realizar los siguientes pasos
+
+-> Ingresar al proyecto:
+cd proyecto-tecnologia-web
+
+-> Ingresar a la carpeta de VitrinaSur:
+cd vitrinasur
+
+-> Instalar dependencias:
+npm install
+
+-> Ejecutar servidor local:
+npm run dev
