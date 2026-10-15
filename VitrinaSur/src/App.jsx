@@ -1,5 +1,5 @@
 import "./App.css";
-import logo from "./assets/vitrinasur.svg";
+import logo from './assets/logo-vitrinasur.png';
 
 function App() {
   return (
@@ -7,7 +7,7 @@ function App() {
       {/* Header */}
       <header className="header">
         <a href="/" className="logo">
-          <img src={logo} alt="VitrinaSur" />
+          <img src={logo} alt="VitrinaSur" className="logo-img" />
         </a>
 
         <nav className="nav">
@@ -55,7 +55,7 @@ function App() {
         <section className="section" id="categorias">
           <div className="section-header">
             <div>
-              <p className="eyebrow">EXPLORA</p>
+              <p className="eyebrow">EXPLORA CATEGORÍAS</p>
               <h2>Categorías</h2>
             </div>
           </div>

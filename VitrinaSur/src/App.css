@@ -8,7 +8,19 @@ body {
   background: #f7f4ec;
   color: #202624;
 }
+html,
+body,
+#root {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
 
+.app {
+  width: 100%;
+  min-height: 100vh;
+}
 button,
 input {
   font: inherit;
@@ -36,11 +48,11 @@ button {
 }
 
 .logo {
-  display: flex;
-  align-items: center;
+  height: 120px;
+  width: auto;
 }
 
-.logo img {
+.logo-img {
   display: block;
   width: 160px;
   height: auto;
@@ -80,10 +92,10 @@ button {
 }
 
 .eyebrow {
-  margin: 0 0 10px;
-  font-size: 12px;
+  margin: 0 0 8px;
+  font-size: 20px;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
   color: #236933;
 }
 
@@ -155,7 +167,7 @@ button {
 
 .section h2 {
   margin: 0;
-  font-size: 32px;
+  font-size: clamp(36px, 5vw, 56px);
 }
 
 .see-more {
@@ -281,8 +293,9 @@ button {
 }
 
 .producer-section h2 {
-  font-size: 36px;
+  font-size: clamp(32px, 5vw, 48px);
   margin: 10px 0 20px;
+  color: white;
 }
 
 .producer-section p {
