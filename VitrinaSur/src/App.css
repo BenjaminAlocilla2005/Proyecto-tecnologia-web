@@ -163,6 +163,47 @@ button {
   color: white;
 }
 
+/* Buscador blanco de VitrinaSur */
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 420px;
+  padding: 0 16px;
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+.search-icon {
+  flex-shrink: 0;
+  color: #6B7280;
+}
+
+.search-box input {
+  flex: 1;
+  min-width: 0;
+  padding: 14px 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #236933;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+}
+
+.search-box input::placeholder {
+  color: #9CA3AF;
+}
+
+.search-box:focus-within {
+  border-color: #236933;
+  box-shadow: 0 0 0 3px rgba(35, 105, 51, 0.12);
+}
+
+
 /* =========================
    SECTIONS
 ========================= */
