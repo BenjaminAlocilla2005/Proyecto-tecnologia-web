@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/vitrinasur.png";
@@ -30,7 +29,7 @@ function Navbar() {
         </Link>
 
         <Link
-          to="/categorias/alimentos"
+          to="/categorias/"
           onClick={cerrarMenu}
         >
           Categorías

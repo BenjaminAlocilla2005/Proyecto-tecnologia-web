@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Inicio() {
   return (
     <div className="app">
@@ -168,9 +170,9 @@ function Inicio() {
               a sus productos y al territorio donde se originan.
             </p>
 
-            <button className="primary-button">
-              Conocer productores
-            </button>
+            <Link to="/productores" className="primary-button">
+             Conocer productores
+            </Link>
           </div>
         </section>
       </main>

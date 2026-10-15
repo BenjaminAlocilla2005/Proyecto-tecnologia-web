@@ -366,6 +366,8 @@ button {
   background: #F0B448;
   color: #202624;
   font-weight: 700;
+  display: inline-block;
+  text-decoration: none;
 }
 
 /* =========================
