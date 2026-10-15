@@ -27,7 +27,7 @@ VitrinaSur tiene como objetivo presentar una vitrina digital territorial capaz d
 
 ## Instalación
 -> Clonar el repositorio:
-git clone https://github.com/Bryan05U/Proyecto-tecnologia-web
+git clone https://github.com/BenjaminAlocilla2005/Proyecto-tecnologia-web.git
 
 Asegurate tener instalado Node.js antes de realizar los siguientes pasos
 
