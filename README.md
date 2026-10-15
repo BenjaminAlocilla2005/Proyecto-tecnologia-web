@@ -1,5 +1,9 @@
-# VitrinaSur
-![alt text](image.png)
+# Proyecto Web: VitrinaSur
+<p align="center"> <img src="./image.png" alt="Logo VitrinaSur" width="300"> </p>
+<p align="center"> <strong>Vitrina digital territorial para productores locales de Chiloé</strong> </p>
+<p align="center"> React · Vite · JavaScript · CSS3 · HTML5 </p>
+
+---
 
 VitrinaSur es el nombre del proyecto de aplicación web móvil que estará enfocado en facilitar la visibilización y comercialización digital de productos y productores locales de Chiloé
 
