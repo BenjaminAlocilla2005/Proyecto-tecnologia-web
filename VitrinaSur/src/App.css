@@ -53,7 +53,9 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 6%;
+  gap: 40px;
+  width: 100%;
+  padding: 22px 5%;
   background: white;
   border-bottom: 1px solid #e5e5e5;
 }
@@ -65,13 +67,15 @@ button {
 
 .logo img {
   display: block;
-  width: 160px;
+  width: 175px;
   height: auto;
 }
 
 .nav {
   display: flex;
-  gap: 30px;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 32px;
 }
 
 .nav a {
@@ -92,12 +96,12 @@ button {
 ========================= */
 
 .hero {
-  padding: 80px 6%;
+  padding: 90px 5%;
   background: #e8e4d8;
 }
 
 .hero-content {
-  max-width: 850px;
+  max-width: 1050px;
   margin: 0 auto;
   text-align: center;
 }
@@ -135,7 +139,7 @@ button {
 
 .search-box {
   display: flex;
-  max-width: 650px;
+  max-width: 760px;
   margin: 35px auto 0;
   padding: 6px;
   background: white;
@@ -164,9 +168,10 @@ button {
 ========================= */
 
 .section {
-  padding: 70px 6%;
-  max-width: 1300px;
+  width: 100%;
+  max-width: 1440px;
   margin: 0 auto;
+  padding: 80px 5%;
 }
 
 .section-header {
@@ -194,8 +199,8 @@ button {
 
 .categories {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
 }
 
 .category-card {
@@ -225,8 +230,8 @@ button {
 
 .products {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px;
 }
 
 .product-card {
@@ -386,7 +391,7 @@ button {
   }
 
   .categories {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .products {
