@@ -4,9 +4,32 @@
 
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
   background: #f7f4ec;
   color: #202624;
+}
+
+/* Tipografía de títulos */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+}
+
+/* Tipografía de textos */
+p,
+a,
+button,
+input,
+textarea,
+select,
+label,
+li {
+  font-family: 'Inter', sans-serif;
 }
 
 button,

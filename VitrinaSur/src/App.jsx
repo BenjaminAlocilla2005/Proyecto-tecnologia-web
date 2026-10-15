@@ -1,5 +1,5 @@
 import "./App.css";
-import logo from "./assets/vitrinasur.svg";
+import logo from "./assets/vitrinasur.png";
 
 function App() {
   return (
