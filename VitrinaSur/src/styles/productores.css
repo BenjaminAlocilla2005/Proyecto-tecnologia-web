@@ -1,0 +1,91 @@
+.productores-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  font-family: "Inter", sans-serif;
+}
+
+.productores-encabezado {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.productores-encabezado h1 {
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(28px, 4vw, 40px);
+  color: #236933;
+}
+
+.productores-encabezado p {
+  margin-top: 12px;
+  color: #555;
+}
+
+.productores-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.productor-card {
+  background: white;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.09);
+}
+
+.productor-imagen {
+  height: 180px;
+  background: #e8efe8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #236933;
+  font-weight: 600;
+}
+
+.productor-info {
+  padding: 20px;
+}
+
+.productor-info h2 {
+  color: #236933;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.productor-comuna {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.productor-info button {
+  background: #236933;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 18px;
+  margin-top: 16px;
+  font-weight: 600;
+}
+
+.productor-info button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+@media (max-width: 900px) {
+  .productores-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .productores-page {
+    padding: 32px 16px;
+  }
+
+  .productores-grid {
+    grid-template-columns: 1fr;
+  }
+}

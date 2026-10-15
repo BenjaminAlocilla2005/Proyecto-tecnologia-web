@@ -366,6 +366,8 @@ button {
   background: #F0B448;
   color: #202624;
   font-weight: 700;
+  display: inline-block;
+  text-decoration: none;
 }
 
 /* =========================
@@ -453,5 +455,27 @@ button {
 
   .producer-section h2 {
     font-size: 28px;
+  }
+  
+  .nav.nav-open {
+    display: flex;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 12px 5%;
+    background: white;
+    border-bottom: 1px solid #e5e5e5;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+    z-index: 100;
+  }
+
+  .nav.nav-open a {
+    padding: 14px 10px;
+    color: #236933;
+    font-weight: 600;
   }
 }
