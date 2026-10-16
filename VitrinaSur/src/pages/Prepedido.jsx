@@ -18,7 +18,37 @@ function Prepedido() {
   const [telefono, setTelefono] = useState("");
   const [cantidad, setCantidad] = useState(1);
   const [confirmado, setConfirmado] = useState(false);
+  const [mostrarResumen, setMostrarResumen] = useState(false);
   const [errores, setErrores] = useState({});
+  const [cargando, setCargando] = useState(false);
+  const validarCampo = (campo, valor) => {
+    let mensaje = "";
+
+    if (campo === "nombre") {
+      if (valor.trim().length < 2) {
+        mensaje = "Ingresa un nombre de al menos 2 caracteres.";
+      }
+    }
+
+    if (campo === "telefono") {
+      const telefonoLimpio = valor.replace(/\s/g, "");
+
+      if (!/^\+?[0-9]{8,12}$/.test(telefonoLimpio)) {
+        mensaje = "Ingresa un teléfono válido de 8 a 12 dígitos.";
+      }
+    }
+
+    if (campo === "cantidad") {
+      if (!Number.isInteger(valor) || valor < 1) {
+        mensaje = "La cantidad debe ser un entero mayor a cero.";
+      }
+    }
+
+    setErrores((anteriores) => ({
+      ...anteriores,
+      [campo]: mensaje,
+    }));
+  };
 
   if (!producto) {
     return (
@@ -63,7 +93,7 @@ function Prepedido() {
     }
 
     // Demostración: todavía no existe envío al backend.
-    setConfirmado(true);
+    setMostrarResumen(true);
   };
 
 
@@ -78,6 +108,59 @@ function Prepedido() {
         Completa tus datos para solicitar este producto
         de emprendedores locales de Chiloé.
       </p>
+      
+      {mostrarResumen && !confirmado && (
+        <div className="prepedido-resumen" role="region" aria-label="Resumen del prepedido">
+          <h2>Revisa tu prepedido</h2>
+
+          <p><strong>Producto:</strong> {producto.nombre}</p>
+          <p><strong>Nombre:</strong> {nombre.trim()}</p>
+          <p><strong>Teléfono:</strong> {telefono}</p>
+          <p><strong>Cantidad:</strong> {cantidad}</p>
+
+          <p className="resumen-total">
+            <strong>
+              Total: ${total.toLocaleString("es-CL")}
+            </strong>
+          </p>
+
+          <p className="resumen-aviso">
+            Esta es una demostración. No se enviará
+            ninguna solicitud al productor.
+          </p>
+
+          <div className="resumen-acciones">
+            <button
+              type="button"
+              className="resumen-volver"
+              onClick={() => setMostrarResumen(false)}
+            >
+              Modificar datos
+            </button>
+
+            <button
+              type="button"
+              className="prepedido-boton"
+              disabled={cargando}
+              aria-busy={cargando}
+              onClick={() => {
+                if (cargando) return;
+
+                setCargando(true);
+
+                // Simulación local: no se envían datos.
+                setTimeout(() => {
+                  setConfirmado(true);
+                  setMostrarResumen(false);
+                  setCargando(false);
+                }, 1500);
+              }}
+            >
+              {cargando ? "Preparando solicitud..." : "Confirmar demostración"}
+            </button>
+          </div>
+        </div>
+      )}
 
       {confirmado ? (
         <div className="prepedido-confirmacion" role="status">
@@ -106,10 +189,11 @@ function Prepedido() {
             id="nombre"
             type="text"
             value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
+            onChange={(e) => {const valor = e.target.value;setNombre(valor);validarCampo("nombre", valor);}}
             placeholder="Ingresa tu nombre"
             minLength={2}
             required
+            aria-invalid={Boolean(errores.nombre)}
           />
           {errores.nombre && (
             <p className="campo-error" role="alert">
@@ -122,11 +206,12 @@ function Prepedido() {
             id="telefono"
             type="tel"
             value={telefono}
-            onChange={(e) => setTelefono(e.target.value)}
+            onChange={(e) => {const valor = e.target.value;setTelefono(valor);validarCampo("telefono", valor);}}
             placeholder="Ej: +56912345678"
             pattern="\+?[0-9]{8,12}"
             title="Ingresa entre 8 y 12 dígitos, opcionalmente con + al inicio"
             required
+            aria-invalid={Boolean(errores.telefono)}
           />
           {errores.telefono && (
             <p className="campo-error" role="alert">
@@ -141,8 +226,14 @@ function Prepedido() {
             min="1"
             step="1"
             value={cantidad}
-            onChange={(e) => setCantidad(Number(e.target.value))}
+            onChange={(e) => {
+              const valor = Number(e.target.value);
+              
+              setCantidad(valor);
+              validarCampo("cantidad", valor);
+            }}
             required
+            aria-invalid={Boolean(errores.cantidad)}
           />
           {errores.cantidad && (
             <p className="campo-error" role="alert">
