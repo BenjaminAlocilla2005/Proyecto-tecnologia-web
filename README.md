@@ -23,21 +23,43 @@ VitrinaSur tiene como objetivo presentar una vitrina digital territorial capaz d
 * Mantener una identidad visual coherente.
 * Organizar el sistema mediante una arquitectura backend por capas.
 
+## 🛍️ 4. Funcionalidades principales
+### Inicio — Vitrina de productos
+* Exploración de productos locales.
+* Presentación de la identidad visual.
+* Acceso al detalle de cada producto.
+
+### Detalle del producto
+* Información y características del producto.
+* Precio y datos del productor, según corresponda.
+* Acceso a la acción de prepedido.
+
+### Prepedido
+* Revisión del producto seleccionado.
+* Ingreso de los datos necesarios.
+* Coordinación del retiro con el productor.
+
+> Las funcionalidades anteriores describen el alcance del proyecto. Su estado debe ser verificado acorde a la implementación actual.
+
 ## Integrantes
 - Bryan Cárcamo
 - Benjamín Alocilla
 
-## Herramientas de diseño
-- Canva (utilizado para el logotipo)
-- Figma (storyboard, wireframes y mockups)
+## 🧰 5. Stack tecnológico
 
-## Herramientas utilizadas para código
-- Visual Studio Code
-- JavaScript
-- React
-- Vite
-- HTML5
-- CSS3
+| Tecnología         | Uso                                  |
+| ------------------ | ------------------------------------ |
+| HTML5              | Estructura de la aplicación          |
+| CSS3               | Diseño y estilos responsivos         |
+| JavaScript         | Lógica e interacciones               |
+| React              | Desarrollo de componentes            |
+| Vite               | Servidor de desarrollo y compilación |
+| npm                | Administración de dependencias       |
+| Git                | Control de versiones                 |
+| GitHub             | Repositorio y colaboración           |
+| Visual Studio Code | Entorno de desarrollo                |
+| Figma              | Wireframes, storyboard y mockups     |
+| Canva              | Diseño del logotipo                  |
 
 ## Instalación
 -> Clonar el repositorio:
@@ -49,20 +71,20 @@ Asegurate tener instalado Node.js antes de realizar los siguientes pasos
 
 ## Primer Paso:
 
--> Ingresar al proyecto:
+* Ingresar al proyecto:
 cd proyecto-tecnologia-web
 
 ## Segundo Paso:
 
--> Ingresar a la carpeta de VitrinaSur:
+* Ingresar a la carpeta de VitrinaSur:
 cd VitrinaSur
 
 ## Tercer Paso:
 
--> Instalar dependencias:
+* Instalar dependencias:
 npm install
 
 ## Cuarto Paso:
 
--> Ejecutar servidor local:
+* Ejecutar servidor local:
 npm run dev
