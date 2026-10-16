@@ -4,6 +4,7 @@ import Inicio from "./pages/Inicio";
 import Productos from "./pages/Productos";
 import Productores from "./pages/Productores";
 import Categorias from "./pages/Categorias";
+import DetalleProducto from "./pages/DetalleProducto";
 import "./App.css";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/productos" element={<Productos />} />
         <Route path="/productores" element={<Productores />} />
         <Route path="/categorias" element={<Categorias />} />
+        <Route path="/productos/:id" element={<DetalleProducto />} />
       </Routes>
 
       <footer className="footer">
