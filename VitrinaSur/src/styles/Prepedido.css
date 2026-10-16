@@ -121,3 +121,20 @@
 .prepedido-formulario input:invalid:not(:focus) {
   border-color: #b42318;
 }
+
+/* Validación en tiempo real */
+
+.prepedido-formulario input[aria-invalid="true"] {
+  border: 2px solid #b42318;
+  background-color: #fff8f7;
+}
+
+.prepedido-formulario input[aria-invalid="false"] {
+  border-color: #236933;
+}
+
+/* Estado de carga del botón de prepedido */
+.prepedido-boton:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
