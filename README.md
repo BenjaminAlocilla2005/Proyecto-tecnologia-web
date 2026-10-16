@@ -5,13 +5,23 @@
 
 ---
 
+## 📌 1. Descripción del proyecto
 VitrinaSur es el nombre del proyecto de aplicación web móvil que estará enfocado en facilitar la visibilización y comercialización digital de productos y productores locales de Chiloé
 
-## Descripción del problema
+## 🎯 2. Problema identificado
 Chiloé tiene una oferta amplia de productos, oficios, gastronomía, artesanía y producción local; sin embargo, la oferta está fragmentada, dispersa y de muy baja digitalización comercial.
 
-## Objetivo
+## 🚀 3. Objetivos
+### Objetivo general
 VitrinaSur tiene como objetivo presentar una vitrina digital territorial capaz de conectar productores locales de Chiloé con compradores, lo que facilita la exploración de productos, el contacto y los prepedidos con retiro coordinado y satisfactorio, así evitando que sea un ecommerce genérico.
+
+### Objetivos específicos
+* Centralizar la exhibición de productos locales.
+* Facilitar la exploración y navegación por el catálogo.
+* Presentar información de productos y productores.
+* Incorporar un flujo de prepedido.
+* Mantener una identidad visual coherente.
+* Organizar el sistema mediante una arquitectura backend por capas.
 
 ## Integrantes
 - Bryan Cárcamo
