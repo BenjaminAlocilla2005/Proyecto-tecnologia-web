@@ -88,7 +88,9 @@ function Inicio() {
               <h2>Productos destacados</h2>
             </div>
 
-            <button className="see-more">Ver todos</button>
+            <Link to="/productos" className="see-more">
+              Ver todos
+            </Link>
           </div>
 
           <div className="products">

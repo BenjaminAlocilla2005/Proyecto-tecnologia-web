@@ -24,8 +24,8 @@ function Navbar() {
           Inicio
         </Link>
 
-        <Link to="/#productos" onClick={cerrarMenu}>
-          Productos
+        <Link to="/productos" onClick={cerrarMenu}>
+         Productos
         </Link>
 
         <Link
