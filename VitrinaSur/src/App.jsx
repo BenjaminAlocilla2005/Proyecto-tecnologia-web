@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Inicio from "./pages/Inicio";
 import Productos from "./pages/Productos";
@@ -12,6 +12,17 @@ function App() {
   return (
     <div className="app">
       <Navbar />
+
+    <Route
+      path="*"
+      element={
+        <main style={{ textAlign: "center", padding: "80px 20px" }}>
+          <h1>Página no encontrada</h1>
+          <p>La página que buscas no existe.</p>
+          <Link to="/">Volver al inicio</Link>
+        </main>
+      }
+    />
 
       <Routes>
         <Route path="/" element={<Inicio />} />
