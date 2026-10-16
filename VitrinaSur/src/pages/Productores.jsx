@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../styles/Productores.css";
 
 const productores = [
@@ -6,6 +7,7 @@ const productores = [
     nombre: "Artesanías de Chiloé",
     comuna: "Castro",
     categoria: "Artesanía",
+    filtro: "Artesanía",
     descripcion:
       "Productos artesanales inspirados en la identidad chilota.",
   },
@@ -14,6 +16,7 @@ const productores = [
     nombre: "Sabores del Sur",
     comuna: "Ancud",
     categoria: "Gastronomía",
+    filtro: "Gastronomía",
     descripcion:
       "Alimentos y preparaciones tradicionales de Chiloé.",
   },
@@ -22,6 +25,7 @@ const productores = [
     nombre: "Tejidos del Archipiélago",
     comuna: "Dalcahue",
     categoria: "Textiles",
+    filtro: "Textiles",
     descripcion:
       "Tejidos artesanales elaborados con lana.",
   },
@@ -57,9 +61,11 @@ function Productores() {
 
               <p>{productor.descripcion}</p>
 
-              <button type="button" disabled>
-                Próximamente
-              </button>
+              
+              <Link to={`/productos?categoria=${encodeURIComponent(productor.filtro)}`} className="productor-boton">
+                Ver productos
+              </Link>
+
             </div>
           </article>
         ))}

@@ -103,3 +103,21 @@
     font-size: 26px;
   }
 }
+
+/* Validaciones del formulario */
+
+.campo-error {
+  color: #b42318;
+  font-size: 13px;
+  margin: -5px 0 5px;
+  line-height: 1.5;
+}
+
+.prepedido-formulario input:focus-visible {
+  outline: 2px solid #236933;
+  outline-offset: 2px;
+}
+
+.prepedido-formulario input:invalid:not(:focus) {
+  border-color: #b42318;
+}

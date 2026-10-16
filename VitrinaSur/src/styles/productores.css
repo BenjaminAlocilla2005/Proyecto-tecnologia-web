@@ -59,19 +59,30 @@
   margin-bottom: 10px;
 }
 
-.productor-info button {
-  background: #236933;
-  color: white;
-  border: none;
-  border-radius: 8px;
+/* Botón de navegación a productos */
+
+.productor-boton {
+  display: inline-block;
+  background-color: #236933;
+  color: #ffffff;
   padding: 12px 18px;
   margin-top: 16px;
+  border-radius: 8px;
   font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
-.productor-info button:disabled {
-  opacity: 0.65;
-  cursor: not-allowed;
+.productor-boton:hover {
+  background-color: #194d25;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.productor-boton:focus-visible {
+  outline: 3px solid #F0B448;
+  outline-offset: 3px;
 }
 
 @media (max-width: 900px) {

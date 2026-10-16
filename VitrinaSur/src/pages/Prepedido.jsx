@@ -18,6 +18,7 @@ function Prepedido() {
   const [telefono, setTelefono] = useState("");
   const [cantidad, setCantidad] = useState(1);
   const [confirmado, setConfirmado] = useState(false);
+  const [errores, setErrores] = useState({});
 
   if (!producto) {
     return (
@@ -30,17 +31,41 @@ function Prepedido() {
 
   const total = producto.precio * cantidad;
 
+  
   const enviarPrepedido = (e) => {
     e.preventDefault();
 
-    if (!nombre.trim() || !telefono.trim() || cantidad < 1) {
+    const nuevosErrores = {};
+    const telefonoLimpio = telefono.replace(/\s/g, "");
+
+    if (nombre.trim().length < 2) {
+      nuevosErrores.nombre =
+        "Ingresa un nombre de al menos 2 caracteres.";
+    }
+
+    if (!/^\+?[0-9]{8,12}$/.test(telefonoLimpio)) {
+      nuevosErrores.telefono =
+        "Ingresa un teléfono válido de 8 a 12 dígitos.";
+    }
+
+    if (
+      !Number.isInteger(cantidad) ||
+      cantidad < 1
+    ) {
+      nuevosErrores.cantidad =
+        "La cantidad debe ser un número entero mayor a cero.";
+    }
+
+    setErrores(nuevosErrores);
+
+    if (Object.keys(nuevosErrores).length > 0) {
       return;
     }
 
-    // Confirmación de demostración.
-    // Todavía no se guarda en una base de datos.
+    // Demostración: todavía no existe envío al backend.
     setConfirmado(true);
   };
+
 
   return (
     <main className="prepedido-contenedor">
@@ -66,7 +91,7 @@ function Prepedido() {
           </Link>
         </div>
       ) : (
-        <form onSubmit={enviarPrepedido} className="prepedido-formulario">
+        <form onSubmit={enviarPrepedido} noValidate className="prepedido-formulario">
           <h2>{producto.nombre}</h2>
 
           <p>
@@ -86,6 +111,11 @@ function Prepedido() {
             minLength={2}
             required
           />
+          {errores.nombre && (
+            <p className="campo-error" role="alert">
+              {errores.nombre}
+            </p>
+          )}
 
           <label htmlFor="telefono">Teléfono de contacto</label>
           <input
@@ -98,6 +128,11 @@ function Prepedido() {
             title="Ingresa entre 8 y 12 dígitos, opcionalmente con + al inicio"
             required
           />
+          {errores.telefono && (
+            <p className="campo-error" role="alert">
+              {errores.telefono}
+            </p>
+          )}
 
           <label htmlFor="cantidad">Cantidad</label>
           <input
@@ -109,6 +144,11 @@ function Prepedido() {
             onChange={(e) => setCantidad(Number(e.target.value))}
             required
           />
+          {errores.cantidad && (
+            <p className="campo-error" role="alert">
+              {errores.cantidad}
+            </p>
+          )}
 
           <div className="prepedido-total">
             <span>Total estimado</span>
