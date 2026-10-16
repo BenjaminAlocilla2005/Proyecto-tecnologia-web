@@ -564,3 +564,82 @@ button {
   color: #666;
   padding: 30px 15px;
 }
+
+
+/* =========================
+   AJUSTES RESPONSIVE TABLET
+========================= */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+
+  .header {
+    padding-left: 4%;
+    padding-right: 4%;
+  }
+
+  .section {
+    padding-left: 4%;
+    padding-right: 4%;
+  }
+
+  #categorias .categories {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #productos .products,
+  .pagina-productos .products {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .catalogo-contenido {
+    padding-left: 4%;
+    padding-right: 4%;
+  }
+}
+
+
+/* =========================
+   AJUSTES MÓVILES PEQUEÑOS
+========================= */
+
+@media (max-width: 480px) {
+
+  .hero h1 {
+    font-size: clamp(28px, 8vw, 38px);
+    overflow-wrap: break-word;
+  }
+
+  .section h2 {
+    font-size: 23px;
+  }
+
+  .search-box {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .search-box input {
+    min-width: 0;
+    flex: 1;
+  }
+
+  #categorias .categories {
+    gap: 12px;
+  }
+
+  #productos .products,
+  .pagina-productos .products {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .product-card {
+    min-width: 0;
+  }
+
+  .filtros-categorias {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
