@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -106,7 +105,7 @@ function Productos() {
 
         <div className="products">
           {productosFiltrados.map((producto) => (
-            <article className="product-card" key={producto.id}>
+            <Link to={`/productos/${producto.id}`} className="product-card product-card-link" key={producto.id}>
               <div className="product-image">
                 Imagen del producto
               </div>
@@ -126,7 +125,7 @@ function Productos() {
                   <span className="available">Disponible</span>
                 </div>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
 

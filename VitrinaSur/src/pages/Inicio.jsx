@@ -94,7 +94,7 @@ function Inicio() {
           </div>
 
           <div className="products">
-            <article className="product-card">
+            <Link to="/productos/1" className="product-card product-card-link">
               <div className="product-image">
                 Imagen del producto
               </div>
@@ -113,9 +113,9 @@ function Inicio() {
                   <span className="available">Disponible</span>
                 </div>
               </div>
-            </article>
+            </Link>
 
-            <article className="product-card">
+            <Link to="/productos/2" className="product-card product-card-link">
               <div className="product-image">
                 Imagen del producto
               </div>
@@ -134,9 +134,9 @@ function Inicio() {
                   <span className="available">Disponible</span>
                 </div>
               </div>
-            </article>
+            </Link>
 
-            <article className="product-card">
+            <Link to="/productos/3" className="product-card product-card-link">
               <div className="product-image">
                 Imagen del producto
               </div>
@@ -155,7 +155,7 @@ function Inicio() {
                   <span className="available">Disponible</span>
                 </div>
               </div>
-            </article>
+            </Link>
           </div>
         </section>
 

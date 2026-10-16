@@ -1,0 +1,105 @@
+.prepedido-contenedor {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 50px 5%;
+  font-family: 'Inter', sans-serif;
+}
+
+.prepedido-contenedor h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 32px;
+  color: #202624;
+  margin: 25px 0 12px;
+}
+
+.prepedido-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: #fff;
+  padding: 30px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  margin-top: 30px;
+}
+
+.prepedido-formulario h2 {
+  font-size: 22px;
+  color: #236933;
+}
+
+.prepedido-formulario label {
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.prepedido-formulario input {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font: inherit;
+}
+
+.prepedido-formulario input:focus {
+  outline: 2px solid #236933;
+  outline-offset: 1px;
+}
+
+.prepedido-total {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 20px 0;
+  margin-top: 15px;
+  border-top: 1px solid #ddd;
+  font-size: 20px;
+}
+
+.prepedido-total strong {
+  color: #236933;
+}
+
+.prepedido-boton {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  background: #F0B448;
+  color: #202624;
+  font: inherit;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.prepedido-boton:hover {
+  background: #e3a638;
+}
+
+.prepedido-confirmacion {
+  padding: 30px;
+  margin-top: 30px;
+  border: 1px solid #c9dfce;
+  border-radius: 12px;
+}
+
+.prepedido-confirmacion p {
+  margin: 15px 0 25px;
+}
+
+@media (max-width: 768px) {
+  .prepedido-contenedor {
+    padding: 30px 5%;
+  }
+
+  .prepedido-formulario {
+    padding: 20px;
+  }
+
+  .prepedido-contenedor h1 {
+    font-size: 26px;
+  }
+}

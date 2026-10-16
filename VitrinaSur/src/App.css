@@ -516,3 +516,26 @@ button {
 #productos h2 {
   color: #202624;
 }
+
+
+/* Tarjetas de productos clicables */
+
+.product-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.product-card-link:hover {
+  text-decoration: none;
+  transform: translateY(-3px);
+  transition: transform 0.2s ease;
+}
+
+.product-card-link h3,
+.product-card-link p,
+.product-card-link strong,
+.product-card-link span {
+  text-decoration: none;
+}
