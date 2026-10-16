@@ -73,3 +73,21 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Tarjetas clicables de Categorías */
+
+.categoria-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.categoria-card-link:hover {
+  text-decoration: none;
+}
+
+.categoria-card-link h2,
+.categoria-card-link p {
+  text-decoration: none;
+}

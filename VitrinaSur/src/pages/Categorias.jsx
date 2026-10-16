@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import "../styles/Categorias.css";
+
 
 const categorias = [
   {
@@ -6,24 +8,28 @@ const categorias = [
     nombre: "Artesanía",
     descripcion: "Creaciones artesanales con identidad chilota.",
     icono: "🧶",
+    filtro: "Artesanía",
   },
   {
     id: 2,
     nombre: "Gastronomía",
     descripcion: "Sabores y preparaciones tradicionales.",
     icono: "🍲",
+    filtro: "Gastronomía",
   },
   {
     id: 3,
     nombre: "Alimentos locales",
     descripcion: "Productos de origen local.",
     icono: "🥔",
+    filtro: "Alimentos",
   },
   {
     id: 4,
     nombre: "Textiles",
     descripcion: "Tejidos y prendas artesanales.",
     icono: "🧣",
+    filtro: "Artesanía",
   },
 ];
 
@@ -40,8 +46,8 @@ function Categorias() {
 
       <section className="categorias-grid">
         {categorias.map((categoria) => (
-          <article
-            className="categoria-card"
+          <Link to={`/productos?categoria=${encodeURIComponent(categoria.filtro)}`}
+            className="categoria-card categoria-card-link"
             key={categoria.id}
           >
             <div className="categoria-icono">
@@ -50,7 +56,7 @@ function Categorias() {
 
             <h2>{categoria.nombre}</h2>
             <p>{categoria.descripcion}</p>
-          </article>
+          </Link>
         ))}
       </section>
     </main>

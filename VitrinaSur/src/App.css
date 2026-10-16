@@ -539,3 +539,28 @@ button {
 .product-card-link span {
   text-decoration: none;
 }
+
+
+/* Categorías clicables de Inicio */
+
+.category-link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.category-link:hover {
+  text-decoration: none;
+}
+
+.category-link span {
+  text-decoration: none;
+}
+
+/* Mensaje cuando no existen productos */
+
+.sin-resultados {
+  text-align: center;
+  color: #666;
+  padding: 30px 15px;
+}
