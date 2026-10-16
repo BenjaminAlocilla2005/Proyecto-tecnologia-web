@@ -58,25 +58,25 @@ function Inicio() {
           </div>
 
           <div className="categories">
-            <button className="category-card">
-              <span className="category-icon">🍎</span>
-              <span>Alimentos</span>
-            </button>
+              <Link to="/productos?categoria=Alimentos" className="category-card category-link">
+                <span className="category-icon">🍎</span>
+                <span>Alimentos</span>
+              </Link>
 
-            <button className="category-card">
-              <span className="category-icon">🧶</span>
-              <span>Artesanía</span>
-            </button>
+              <Link to="/productos?categoria=Artesanía" className="category-card category-link">
+                <span className="category-icon">🧶</span>
+                <span>Artesanía</span>
+              </Link>
 
-            <button className="category-card">
-              <span className="category-icon">🍲</span>
-              <span>Gastronomía</span>
-            </button>
+              <Link to="/productos?categoria=Gastronomía" className="category-card category-link">
+                <span className="category-icon">🍲</span>
+                <span>Gastronomía</span>
+              </Link>
 
-            <button className="category-card">
-              <span className="category-icon">📍</span>
-              <span>Ferias</span>
-            </button>
+              <Link to="/productos?categoria=Ferias" className="category-card category-link">
+                <span className="category-icon">📍</span>
+                <span>Ferias</span>
+              </Link>
           </div>
         </section>
 

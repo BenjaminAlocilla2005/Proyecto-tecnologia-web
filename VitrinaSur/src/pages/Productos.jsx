@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 const productos = [
   {
@@ -32,7 +32,20 @@ const categorias = ["Todos", "Alimentos", "Artesanía", "Gastronomía", "Ferias"
 
 function Productos() {
   const [busqueda, setBusqueda] = useState("");
-  const [categoria, setCategoria] = useState("Todos");
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const categoriaURL = searchParams.get("categoria");
+  const categoria = categorias.includes(categoriaURL)
+    ? categoriaURL
+    : "Todos";
+
+  const setCategoria = (nuevaCategoria) => {
+    if (nuevaCategoria === "Todos") {
+      setSearchParams({});
+    } else {
+      setSearchParams({ categoria: nuevaCategoria });
+    }
+  };
 
   const productosFiltrados = productos.filter((producto) => {
     const coincideCategoria =
@@ -103,6 +116,11 @@ function Productos() {
 
         <h2>Todos los productos</h2>
 
+        {productosFiltrados.length === 0 && (
+          <p className="sin-resultados">
+            No hay productos disponibles para esta búsqueda o categoría.
+         </p>
+        )}
         <div className="products">
           {productosFiltrados.map((producto) => (
             <Link to={`/productos/${producto.id}`} className="product-card product-card-link" key={producto.id}>
