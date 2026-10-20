@@ -87,6 +87,11 @@ VitrinaSur tiene como objetivo presentar una vitrina digital territorial capaz d
 ```bash
 git clone https://github.com/Bryan05U/Proyecto-tecnologia-web
 
+### Paso 1: Clonar el repositorio
+```bash
+git clone https://github.com/BenjaminAlocilla2005/Proyecto-tecnologia-web.git
+cd Proyecto-tecnologia-web
+
 🖥️ 6.1. Levantar el Frontend (React)
 Primer Paso:
 
@@ -110,8 +115,3 @@ Ejecutar servidor local:
 
 npm run dev
 * Tener instalado **PostgreSQL** (v14 o superior) y pgAdmin.
-
-### Paso 1: Clonar el repositorio
-```bash
-git clone https://github.com/BenjaminAlocilla2005/Proyecto-tecnologia-web.git
-cd Proyecto-tecnologia-web
