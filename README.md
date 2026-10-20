@@ -1,7 +1,7 @@
-# 🏪 Proyecto Web: VitrinaSur
+# 🛍️ Proyecto Web: VitrinaSur
 
-<p align="center"> 
-  <img src="./image.png" alt="Logo VitrinaSur" width="250"> 
+<p align="center">
+  <img src="./image.png" alt="Logo VitrinaSur" width="300">
 </p>
 
 <p align="center">
@@ -9,64 +9,106 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React">
-  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite">
-  <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js">
-  <img src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge" alt="Express">
-  <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL">
-  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3">
+  <!-- Aquí están las insignias de colores -->
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" alt="Vite" />
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
+  <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js" />
+  <img src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge" alt="Express" />
+  <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" />
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3" />
 </p>
 
 ---
 
 ## 📌 1. Descripción del proyecto
-
-VitrinaSur es una aplicación web full-stack diseñada para facilitar la visibilización y comercialización digital de productos y productores locales de Chiloé. El proyecto busca centralizar la oferta fragmentada de la isla en una plataforma moderna, rápida y fácil de usar, evitando ser un e-commerce genérico.
+VitrinaSur es el nombre del proyecto de aplicación web móvil que estará enfocado en facilitar la visibilización y comercialización digital de productos y productores locales de Chiloé.
 
 ## 🎯 2. Problema identificado
-
-Chiloé tiene una oferta amplia de productos, oficios, gastronomía, artesanía y producción local. Sin embargo, esta oferta está fragmentada, dispersa y tiene una baja digitalización comercial. VitrinaSur resuelve esto conectando directamente al productor con el comprador.
+Chiloé tiene una oferta amplia de productos, oficios, gastronomía, artesanía y producción local; sin embargo, la oferta está fragmentada, dispersa y de muy baja digitalización comercial.
 
 ## 🚀 3. Objetivos
 
 ### Objetivo general
-Presentar una vitrina digital territorial que conecte productores locales de Chiloé con compradores, facilitando la exploración de productos, el contacto y los prepedidos con retiro coordinado.
+VitrinaSur tiene como objetivo presentar una vitrina digital territorial capaz de conectar productores locales de Chiloé con compradores, lo que facilita la exploración de productos, el contacto y los prepedidos con retiro coordinado y satisfactorio, así evitando que sea un ecommerce genérico.
 
 ### Objetivos específicos
 * Centralizar la exhibición de productos locales.
 * Facilitar la exploración y navegación por el catálogo.
-* Presentar información detallada de productos y productores.
-* Incorporar un flujo de prepedido funcional.
-* Mantener una identidad visual coherente y responsiva.
+* Presentar información de productos y productores.
+* Incorporar un flujo de prepedido.
+* Mantener una identidad visual coherente.
 * Organizar el sistema mediante una arquitectura backend por capas.
 
 ## 🛍️ 4. Funcionalidades principales
 
-| Módulo | Descripción |
-| :--- | :--- |
-| **Inicio** | Exploración de productos destacados, presentación de identidad visual y buscador. |
-| **Catálogo** | Vista completa de productos con filtros por categoría. |
-| **Detalle** | Información ampliada de cada producto, precio y datos del productor. |
-| **Prepedido** | Formulario de contacto para coordinar el retiro con el productor (con validación). |
-| **Backend API** | Servidor Node.js/Express conectado a PostgreSQL que provee los datos reales. |
+### Inicio — Vitrina de productos
+* Exploración de productos locales.
+* Presentación de la identidad visual.
+* Acceso al detalle de cada producto.
+
+### Detalle del producto
+* Información y características del producto.
+* Precio y datos del productor, según corresponda.
+* Acceso a la acción de prepedido.
+
+### Prepedido
+* Revisión del producto seleccionado.
+* Ingreso de los datos necesarios.
+* Coordinación del retiro con el productor.
+
+> Las funcionalidades anteriores describen el alcance del proyecto. Su estado debe ser verificado acorde a la implementación actual.
 
 ## 👥 Integrantes
-- Bryan Cárcamo
-- Benjamín Alocilla
+- 👨‍💻 Bryan Cárcamo
+- 👨‍💻 Benjamín Alocilla
 
-## 🧰 5. Stack Tecnológico
+## 🧰 5. Stack tecnológico
 
-| Capa | Tecnologías |
+| Tecnología | Uso |
 | :--- | :--- |
-| **Frontend** | React, Vite, JavaScript, CSS3, HTML5 |
-| **Backend** | Node.js, Express, CORS, Dotenv |
-| **Base de Datos** | PostgreSQL (pg) |
-| **Herramientas** | Git, GitHub, Visual Studio Code, Figma, Canva |
+| **HTML5** | Estructura de la aplicación |
+| **CSS3** | Diseño y estilos responsivos |
+| **JavaScript** | Lógica e interacciones |
+| **React** | Desarrollo de componentes |
+| **Vite** | Servidor de desarrollo y compilación |
+| **Node.js** | Entorno de ejecución del Backend |
+| **Express** | Framework para la API REST |
+| **PostgreSQL** | Base de datos relacional |
+| **Git** | Control de versiones |
+| **GitHub** | Repositorio y colaboración |
+| **Visual Studio Code** | Entorno de desarrollo |
+| **Figma** | Wireframes, storyboard y mockups |
+| **Canva** | Diseño del logotipo |
 
-## ⚙️ 6. Instalación y Ejecución (Local)
+## ⚙️ 6. Instalación y Ejecución
 
-### Requisitos previos
-* Tener instalado **Node.js** (v18 o superior).
+-> Clonar el repositorio:
+```bash
+git clone https://github.com/Bryan05U/Proyecto-tecnologia-web
+
+🖥️ 6.1. Levantar el Frontend (React)
+Primer Paso:
+
+Ingresar al proyecto:
+
+cd proyecto-tecnologia-web
+Segundo Paso:
+
+Ingresar a la carpeta de VitrinaSur:
+
+cd VitrinaSur
+
+Tercer Paso:
+
+Instalar dependencias:
+
+npm install
+Cuarto Paso:
+
+Ejecutar servidor local:
+
+npm run dev
 * Tener instalado **PostgreSQL** (v14 o superior) y pgAdmin.
 
 ### Paso 1: Clonar el repositorio
