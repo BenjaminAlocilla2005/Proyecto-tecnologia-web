@@ -110,13 +110,11 @@ cd VitrinaSur
 Tercer Paso:
 
 Instalar dependencias:
-
 npm install
 
 
 Cuarto Paso:
 
 Ejecutar servidor local:
-
 npm run dev
 * Tener instalado **PostgreSQL** (v14 o superior) y pgAdmin.
