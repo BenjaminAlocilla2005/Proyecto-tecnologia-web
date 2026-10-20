@@ -88,27 +88,32 @@ VitrinaSur tiene como objetivo presentar una vitrina digital territorial capaz d
 git clone https://github.com/Bryan05U/Proyecto-tecnologia-web
 
 ### Paso 1: Clonar el repositorio
-```bash
+
+
 git clone https://github.com/BenjaminAlocilla2005/Proyecto-tecnologia-web.git
 cd Proyecto-tecnologia-web
 
 🖥️ 6.1. Levantar el Frontend (React)
 Primer Paso:
 
-Ingresar al proyecto:
 
+Ingresar al proyecto:
 cd proyecto-tecnologia-web
+
+
 Segundo Paso:
 
 Ingresar a la carpeta de VitrinaSur:
-
 cd VitrinaSur
+
 
 Tercer Paso:
 
 Instalar dependencias:
 
 npm install
+
+
 Cuarto Paso:
 
 Ejecutar servidor local:
