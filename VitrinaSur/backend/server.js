@@ -1,10 +1,16 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const productosRoutes = require("./routes/productos.routes");
 const categoriasRoutes = require("./routes/categorias.routes");
 const productoresRoutes = require("./routes/productores.routes");
 
 const PORT = 3001;
+
+// Permitir solicitudes desde el frontend React
+app.use(cors({
+  origin: "http://localhost:5173"
+}));
 
 // Permitir recibir datos en formato JSON
 app.use(express.json());
