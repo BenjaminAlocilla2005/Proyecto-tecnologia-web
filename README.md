@@ -9,7 +9,6 @@
 </p>
 
 <p align="center">
-  <!-- Aquí están las insignias de colores -->
   <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
   <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" alt="Vite" />
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
@@ -57,7 +56,7 @@ VitrinaSur tiene como objetivo presentar una vitrina digital territorial capaz d
 * Ingreso de los datos necesarios.
 * Coordinación del retiro con el productor.
 
-> Las funcionalidades anteriores describen el alcance del proyecto. Su estado debe ser verificado acorde a la implementación actual.
+> *Las funcionalidades anteriores describen el alcance del proyecto. Su estado debe ser verificado acorde a la implementación actual.*
 
 ## 👥 Integrantes
 - 👨‍💻 Bryan Cárcamo
@@ -83,30 +82,12 @@ VitrinaSur tiene como objetivo presentar una vitrina digital territorial capaz d
 
 ## ⚙️ 6. Instalación y Ejecución
 
--> Clonar el repositorio:
+### 🖥️ 6.1. Levantar el Frontend (React)
+
+**Paso 1: Clonar el repositorio**
 ```bash
-git clone https://github.com/Bryan05U/Proyecto-tecnologia-web
-
-### Paso 1: Clonar el repositorio
-
-
 git clone https://github.com/BenjaminAlocilla2005/Proyecto-tecnologia-web.git
 cd Proyecto-tecnologia-web
-
-🖥️ 6.1. Levantar el Frontend (React)
-Primer Paso:
-Ingresar al proyecto:
-cd proyecto-tecnologia-web
-
-
-Segundo Paso:
-Ingresar a la carpeta de VitrinaSur:
-cd VitrinaSur
-
-
-Tercer Paso:
-Instalar dependencias:
-npm install
 
 
 Cuarto Paso:
