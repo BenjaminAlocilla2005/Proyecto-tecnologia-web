@@ -1,5 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import {
+  obtenerProductos,
+  obtenerCategorias,
+} from "../services/api";
 
 const productos = [
   {
@@ -28,11 +32,53 @@ const productos = [
   },
 ];
 
-const categorias = ["Todos", "Alimentos", "Artesanía", "Gastronomía", "Ferias"];
 
 function Productos() {
   const [busqueda, setBusqueda] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
+  const [productosAPI, setProductosAPI] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState("");
+  const [categoriasAPI, setCategoriasAPI] = useState([]);
+
+  
+  useEffect(() => {
+    const cargarProductos = async () => {
+      try {
+        const datos = await obtenerProductos();
+        setProductosAPI(datos);
+      } catch (error) {
+        console.error("Error al cargar productos:", error);
+        setError("No se pudieron cargar los productos.");
+      } finally {
+        setCargando(false);
+      }
+    };
+
+    cargarProductos();
+  }, []);
+
+  
+  useEffect(() => {
+    const cargarCategorias = async () => {
+      try {
+        const datos = await obtenerCategorias();
+        setCategoriasAPI(datos);
+      } catch (error) {
+        console.error("Error al cargar categorías:", error);
+        setError((anterior) =>
+          anterior || "No se pudieron cargar las categorías."
+        );
+      }
+    };
+
+    cargarCategorias();
+  }, []);
+
+  const categorias = [
+    "Todos",
+    ...categoriasAPI.map((categoria) => categoria.nombre),
+  ];
 
   const categoriaURL = searchParams.get("categoria");
   const categoria = categorias.includes(categoriaURL)
@@ -47,12 +93,12 @@ function Productos() {
     }
   };
 
-  const productosFiltrados = productos.filter((producto) => {
+  const productosFiltrados = productosAPI.filter((producto) => {
     const coincideCategoria =
       categoria === "Todos" || producto.categoria === categoria;
 
     const coincideBusqueda =
-      `${producto.nombre} ${producto.productor} ${producto.comuna}`
+      `${producto.nombre} ${producto.productor} ${producto.comuna || ""}`
         .toLowerCase()
         .includes(busqueda.toLowerCase());
 
@@ -115,12 +161,18 @@ function Productos() {
         </div>
 
         <h2>Todos los productos</h2>
-
-        {productosFiltrados.length === 0 && (
+        {cargando && (
           <p className="sin-resultados">
-            No hay productos disponibles para esta búsqueda o categoría.
-         </p>
+            Cargando productos...
+          </p>
         )}
+
+        {error && (
+          <p className="sin-resultados" role="alert">
+            {error}
+          </p>
+        )}
+
         <div className="products">
           {productosFiltrados.map((producto) => (
             <Link to={`/productos/${producto.id}`} className="product-card product-card-link" key={producto.id}>
@@ -133,7 +185,8 @@ function Productos() {
                 <h3>{producto.nombre}</h3>
 
                 <p className="producer">
-                  {producto.productor} · {producto.comuna}
+                  {producto.productor}
+                  {producto.comuna ? ` · ${producto.comuna}` : ""}
                 </p>
 
                 <div className="product-bottom">
@@ -147,7 +200,7 @@ function Productos() {
           ))}
         </div>
 
-        {productosFiltrados.length === 0 && (
+        {!cargando && !error && productosFiltrados.length === 0 && (
           <p className="sin-resultados">
             No encontramos productos con esos filtros.
           </p>
