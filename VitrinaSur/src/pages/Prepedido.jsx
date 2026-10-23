@@ -1,18 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { obtenerProductoPorId } from "../services/api";
 import "../styles/Prepedido.css";
-
-const productos = [
-  { id: 1, nombre: "Mermelada artesanal", precio: 5000 },
-  { id: 2, nombre: "Tejido tradicional", precio: 15000 },
-  { id: 3, nombre: "Producto del mar", precio: 8000 },
-];
 
 function Prepedido() {
   const { id } = useParams();
-  const producto = productos.find(
-    (item) => item.id === Number(id)
-  );
+
+  const [producto, setProducto] = useState(null);
+  const [cargandoProducto, setCargandoProducto] = useState(true);
+  const [errorProducto, setErrorProducto] = useState("");
+
+  useEffect(() => {
+    let activo = true;
+
+    const cargarProducto = async () => {
+      setCargandoProducto(true);
+      setErrorProducto("");
+      setProducto(null);
+
+      try {
+        const datos = await obtenerProductoPorId(id);
+
+        if (activo) {
+          setProducto(datos);
+        }
+      } catch (error) {
+        if (activo) {
+          setErrorProducto(error.message);
+        }
+      } finally {
+        if (activo) {
+          setCargandoProducto(false);
+        }
+      }
+    };
+
+    cargarProducto();
+
+    return () => {
+      activo = false;
+    };
+  }, [id]);
+
 
   const [nombre, setNombre] = useState("");
   const [telefono, setTelefono] = useState("");
@@ -50,11 +79,31 @@ function Prepedido() {
     }));
   };
 
-  if (!producto) {
+
+  if (cargandoProducto) {
     return (
       <main className="prepedido-contenedor">
-        <h1>Producto no encontrado</h1>
-        <Link to="/productos">Volver a productos</Link>
+        <p role="status">Cargando información del producto...</p>
+      </main>
+    );
+  }
+
+  if (errorProducto || !producto) {
+    return (
+      <main className="prepedido-contenedor">
+        <h1>
+          {errorProducto === "Producto no encontrado"
+            ? "Producto no encontrado"
+            : "No se pudo cargar el producto"}
+        </h1>
+
+        <p role="alert">
+          {errorProducto || "El producto solicitado no está disponible."}
+        </p>
+
+        <Link to="/productos" className="volver-inicio">
+          ← Volver a productos
+        </Link>
       </main>
     );
   }
