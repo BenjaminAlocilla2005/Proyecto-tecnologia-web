@@ -17,7 +17,7 @@ const productos = [
     id: 3,
     nombre: "Mermelada artesanal",
     precio: 4500,
-    categoria: "Alimentos",
+    categoria: "Gastronomía",
     productor: "Emprendimientos locales",
   },
 ];
@@ -27,6 +27,12 @@ const obtenerTodos = () => {
   return productos;
 };
 
+// Obtener un producto por su ID
+const obtenerPorId = (id) => {
+  return productos.find((producto) => producto.id === Number(id));
+};
+
 module.exports = {
   obtenerTodos,
+  obtenerPorId,
 };

@@ -3,9 +3,13 @@ const router = express.Router();
 
 const {
   obtenerProductos,
+  obtenerProductoPorId,
 } = require("../controllers/productos.controller");
 
-// Ruta para obtener todos los productos
+// Obtener todos los productos
 router.get("/", obtenerProductos);
+
+// Obtener un producto por ID
+router.get("/:id", obtenerProductoPorId);
 
 module.exports = router;

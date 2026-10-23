@@ -1,38 +1,32 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { obtenerProductores } from "../services/api";
 import "../styles/Productores.css";
 
-const productores = [
-  {
-    id: 1,
-    nombre: "Artesanías de Chiloé",
-    comuna: "Castro",
-    categoria: "Artesanía",
-    filtro: "Artesanía",
-    descripcion:
-      "Productos artesanales inspirados en la identidad chilota.",
-  },
-  {
-    id: 2,
-    nombre: "Sabores del Sur",
-    comuna: "Ancud",
-    categoria: "Gastronomía",
-    filtro: "Gastronomía",
-    descripcion:
-      "Alimentos y preparaciones tradicionales de Chiloé.",
-  },
-  {
-    id: 3,
-    nombre: "Tejidos del Archipiélago",
-    comuna: "Dalcahue",
-    categoria: "Textiles",
-    filtro: "Textiles",
-    descripcion:
-      "Tejidos artesanales elaborados con lana.",
-  },
-];
 
 function Productores() {
+  const [productores, setProductores] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const cargarProductores = async () => {
+      try {
+        const datos = await obtenerProductores();
+        setProductores(datos);
+      } catch (error) {
+        console.error("Error al cargar productores:", error);
+        setError("No se pudieron cargar los productores.");
+      } finally {
+        setCargando(false);
+      }
+    };
+
+    cargarProductores();
+  }, []);
+
   return (
+
     <main className="productores-page">
       <section className="productores-encabezado">
         <h1>Conoce a nuestros productores</h1>
@@ -41,6 +35,18 @@ function Productores() {
           viva la identidad y tradición de Chiloé.
         </p>
       </section>
+
+      {cargando && (
+        <p className="sin-resultados">
+          Cargando productores...
+        </p>
+      )}
+
+      {error && (
+        <p className="sin-resultados" role="alert">
+          {error}
+        </p>
+      )}
 
       <section className="productores-grid">
         {productores.map((productor) => (
@@ -62,7 +68,7 @@ function Productores() {
               <p>{productor.descripcion}</p>
 
               
-              <Link to={`/productos?categoria=${encodeURIComponent(productor.filtro)}`} className="productor-boton">
+              <Link to={`/productos?categoria=${encodeURIComponent(productor.categoria)}`} className="productor-boton">
                 Ver productos
               </Link>
 
