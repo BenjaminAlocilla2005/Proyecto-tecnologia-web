@@ -89,6 +89,21 @@ VitrinaSur tiene como objetivo presentar una vitrina digital territorial capaz d
 git clone https://github.com/BenjaminAlocilla2005/Proyecto-tecnologia-web.git
 cd Proyecto-tecnologia-web
 
+## 📋 Especificación de API REST
+
+| Método | Ruta | Body (JSON) | Código Éxito | Código Error |
+| :--- | :--- | :--- | :--- | :--- |
+| GET | /api/productos | - | 200 OK | 500 |
+| POST | /api/productos | `{ nombre, precio, ... }` | 201 Created | 400, 500 |
+| PUT | /api/productos/:id | `{ nombre, precio }` | 200 OK | 400, 404, 500 |
+| DELETE | /api/productos/:id | - | 200 OK | 404, 500 |
+
+## 🏗️ Arquitectura N-Capas
+1. **Presentación:** Componentes de React (Frontend).
+2. **Lógica de Negocio/Rutas:** `routes/productosRoutes.js`.
+3. **Controladores:** `controllers/productosController.js`.
+4. **Acceso a Datos:** PostgreSQL mediante `db.js`.
+
 
 Cuarto Paso:
 Ejecutar servidor local:
