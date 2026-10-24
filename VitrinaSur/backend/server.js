@@ -9,13 +9,17 @@ const productoresRoutes = require("./routes/productores.routes");
 const prepedidosRoutes = require("./routes/prepedidos.routes");
 const authRoutes = require("./routes/auth.routes");
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
-// Permitir solicitudes desde el frontend React
-// Permitir solicitudes desde el frontend React
+// Permitir solicitudes desde React en desarrollo y producción
+const origenesPermitidos = [
+  "http://localhost:5173",
+  process.env.FRONTEND_URL,
+].filter(Boolean);
+
 app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true
+  origin: origenesPermitidos,
+  credentials: true,
 }));
 
 // Permitir recibir datos en formato JSON
@@ -42,8 +46,8 @@ async function iniciarServidor() {
     console.log("PostgreSQL conectado correctamente");
     console.log("Fecha de PostgreSQL:", resultado.rows[0].now);
 
-    app.listen(PORT, () => {
-      console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
+    app.listen(PORT, "0.0.0.0", () => {
+      console.log(`Servidor ejecutándose en el puerto ${PORT}`);
     });
   } catch (error) {
     console.error("Error al conectar con PostgreSQL:", error.message);
