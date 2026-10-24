@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
@@ -7,6 +6,15 @@ import {
   obtenerProductores,
 } from "../services/api";
 import "../styles/DetalleProducto.css";
+import mielImg from "../assets/productos/miel.jpg";
+import chalecoImg from "../assets/productos/chaleco.jpg";
+import mermeladaImg from "../assets/productos/mermelada.jpg";
+
+const imagenesProductos = {
+  "Miel de Chiloé": mielImg,
+  "Chaleco de lana": chalecoImg,
+  "Mermelada artesanal": mermeladaImg,
+};
 
 function DetalleProducto() {
   const { id } = useParams();
@@ -105,9 +113,9 @@ function DetalleProducto() {
 
       <div className="detalle-grid">
         <div className="detalle-imagen">
-          {producto.imagen ? (
+          {imagenesProductos[producto.nombre] || producto.imagen ? (
             <img
-              src={producto.imagen}
+              src={imagenesProductos[producto.nombre] || producto.imagen}
               alt={producto.nombre}
             />
           ) : (

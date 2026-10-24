@@ -113,3 +113,16 @@
   color: #ffffff;
   text-decoration: none;
 }
+
+.detalle-imagen {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.detalle-imagen img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

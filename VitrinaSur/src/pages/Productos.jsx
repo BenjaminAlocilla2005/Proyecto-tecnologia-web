@@ -5,7 +5,9 @@ import {
   obtenerCategorias,
   obtenerProductores,
 } from "../services/api";
-
+import mielImg from "../assets/productos/miel.jpg";
+import chalecoImg from "../assets/productos/chaleco.jpg";
+import mermeladaImg from "../assets/productos/mermelada.jpg";
 
 const productos = [
   {
@@ -34,6 +36,11 @@ const productos = [
   },
 ];
 
+const imagenesProductos = {
+  "Miel de Chiloé": mielImg,
+  "Chaleco de lana": chalecoImg,
+  "Mermelada artesanal": mermeladaImg,
+};
 
 function Productos() {
   const [busqueda, setBusqueda] = useState("");
@@ -206,7 +213,15 @@ function Productos() {
           {productosFiltrados.map((producto) => (
             <Link to={`/productos/${producto.id}`} className="product-card product-card-link" key={producto.id}>
               <div className="product-image">
-                Imagen del producto
+                {imagenesProductos[producto.nombre] ? (
+                  <img
+                    src={imagenesProductos[producto.nombre]}
+                    alt={producto.nombre}
+                    loading="lazy"
+                  />
+                ) : (
+                  <span>Imagen no disponible</span>
+                )}
               </div>
 
               <div className="product-info">                
