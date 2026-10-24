@@ -3,9 +3,22 @@ const router = express.Router();
 
 const {
   obtenerCategorias,
+  obtenerCategoriaPorId,
+  crearCategoria,
+  actualizarCategoria,
+  eliminarCategoria,
 } = require("../controllers/categorias.controller");
 
-// Ruta para obtener todas las categorías
+const {
+  verificarToken,
+  soloAdministrador,
+} = require("../middleware/auth.middleware");
+
 router.get("/", obtenerCategorias);
+router.get("/:id", obtenerCategoriaPorId);
+
+router.post("/", verificarToken, soloAdministrador, crearCategoria);
+router.put("/:id", verificarToken, soloAdministrador, actualizarCategoria);
+router.delete("/:id", verificarToken, soloAdministrador, eliminarCategoria);
 
 module.exports = router;
