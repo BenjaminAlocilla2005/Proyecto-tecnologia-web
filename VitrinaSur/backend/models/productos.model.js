@@ -1,35 +1,22 @@
-const productos = [
-  {
-    id: 1,
-    nombre: "Miel de Chiloé",
-    precio: 6500,
-    categoria: "Alimentos",
-    productor: "Productores de Chiloé",
-  },
-  {
-    id: 2,
-    nombre: "Chaleco de lana",
-    precio: 25000,
-    categoria: "Artesanía",
-    productor: "Artesanas de Chiloé",
-  },
-  {
-    id: 3,
-    nombre: "Mermelada artesanal",
-    precio: 4500,
-    categoria: "Gastronomía",
-    productor: "Emprendimientos locales",
-  },
-];
+const pool = require("../config/db");
 
 // Obtener todos los productos
-const obtenerTodos = () => {
-  return productos;
+const obtenerTodos = async () => {
+  const resultado = await pool.query(
+    "SELECT * FROM productos ORDER BY id ASC"
+  );
+
+  return resultado.rows;
 };
 
 // Obtener un producto por su ID
-const obtenerPorId = (id) => {
-  return productos.find((producto) => producto.id === Number(id));
+const obtenerPorId = async (id) => {
+  const resultado = await pool.query(
+    "SELECT * FROM productos WHERE id = $1",
+    [id]
+  );
+
+  return resultado.rows[0];
 };
 
 module.exports = {

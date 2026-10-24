@@ -1,54 +1,101 @@
-import { Link, useParams } from "react-router-dom";
-import "../styles/DetalleProducto.css";
 
-const productos = [
-  {
-    id: 1,
-    nombre: "Mermelada artesanal",
-    categoria: "Alimentos",
-    productor: "Productora local",
-    comuna: "Castro",
-    precio: 5000,
-    descripcion:
-      "Mermelada artesanal elaborada por productores locales de Chiloé.",
-  },
-  {
-    id: 2,
-    nombre: "Tejido tradicional",
-    categoria: "Artesanía",
-    productor: "Artesana local",
-    comuna: "Chonchi",
-    precio: 15000,
-    descripcion:
-      "Tejido tradicional inspirado en la identidad y artesanía chilota.",
-  },
-  {
-    id: 3,
-    nombre: "Producto del mar",
-    categoria: "Alimentos",
-    productor: "Productor local",
-    comuna: "Quellón",
-    precio: 8000,
-    descripcion:
-      "Producto del mar ofrecido por emprendedores locales de Chiloé.",
-  },
-];
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import {
+  obtenerProductoPorId,
+  obtenerCategorias,
+  obtenerProductores,
+} from "../services/api";
+import "../styles/DetalleProducto.css";
 
 function DetalleProducto() {
   const { id } = useParams();
 
-  const producto = productos.find(
-    (item) => item.id === Number(id)
-  );
+  const [producto, setProducto] = useState(null);
+  const [categorias, setCategorias] = useState([]);
+  const [productores, setProductores] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState("");
 
-  if (!producto) {
+  useEffect(() => {
+    let activo = true;
+
+    const cargarDetalle = async () => {
+      setCargando(true);
+      setError("");
+      setProducto(null);
+
+      try {
+        const [datosProducto, datosCategorias, datosProductores] =
+          await Promise.all([
+            obtenerProductoPorId(id),
+            obtenerCategorias(),
+            obtenerProductores(),
+          ]);
+
+        if (!activo) return;
+
+        setProducto(datosProducto);
+        setCategorias(datosCategorias);
+        setProductores(datosProductores);
+      } catch (err) {
+        if (!activo) return;
+
+        setError(
+          err.message || "No se pudo cargar el producto."
+        );
+      } finally {
+        if (activo) setCargando(false);
+      }
+    };
+
+    cargarDetalle();
+
+    return () => {
+      activo = false;
+    };
+  }, [id]);
+
+  if (cargando) {
     return (
       <main className="detalle-contenedor">
-        <h1>Producto no encontrado</h1>
-        <Link to="/productos">Volver a productos</Link>
+        <p>Cargando producto...</p>
       </main>
     );
   }
+
+
+  if (error || !producto) {
+    return (
+      <main className="detalle-contenedor">
+        <div className="detalle-error">
+          <h1>
+            {error === "Producto no encontrado"
+              ? "Producto no encontrado"
+              : "No se pudo cargar el producto"}
+          </h1>
+
+          <p>{error}</p>
+
+          <Link
+            to="/productos"
+            className="detalle-volver-boton"
+          >
+            ← Volver a productos
+          </Link>
+        </div>
+      </main>
+    );
+  }
+
+
+  const categoria = categorias.find(
+    (item) => Number(item.id) === Number(producto.categoria_id)
+  );
+
+  const productor = productores.find(
+    (item) => Number(item.id) === Number(producto.productor_id)
+  );
 
   return (
     <main className="detalle-contenedor">
@@ -58,18 +105,31 @@ function DetalleProducto() {
 
       <div className="detalle-grid">
         <div className="detalle-imagen">
-          Imagen del producto
+          {producto.imagen ? (
+            <img
+              src={producto.imagen}
+              alt={producto.nombre}
+            />
+          ) : (
+            "Imagen del producto"
+          )}
         </div>
 
         <div className="detalle-info">
           <p className="product-category">
-            {producto.categoria}
+            {categoria?.nombre || "Sin categoría"}
           </p>
 
           <h1>{producto.nombre}</h1>
 
           <p className="producer">
-            {producto.productor} · {producto.comuna}
+            {productor
+              ? `${productor.nombre}${
+                  productor.comuna
+                    ? ` · ${productor.comuna}`
+                    : ""
+                }`
+              : "Productor no disponible"}
           </p>
 
           <p className="detalle-descripcion">
@@ -77,7 +137,7 @@ function DetalleProducto() {
           </p>
 
           <strong className="detalle-precio">
-            ${producto.precio.toLocaleString("es-CL")}
+            ${Number(producto.precio).toLocaleString("es-CL")}
           </strong>
 
           <p className="available">Disponible</p>

@@ -76,3 +76,40 @@
     text-align: center;
   }
 }
+
+/* Mensaje cuando no se encuentra un producto */
+
+.detalle-error {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.detalle-error h1 {
+  color: #202624;
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.detalle-error p {
+  color: #555;
+  margin-bottom: 24px;
+}
+
+/* Botón para volver al catálogo */
+
+.detalle-volver-boton {
+  display: inline-block;
+  background-color: #236933;
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.detalle-volver-boton:hover {
+  background-color: #194d25;
+  color: #ffffff;
+  text-decoration: none;
+}

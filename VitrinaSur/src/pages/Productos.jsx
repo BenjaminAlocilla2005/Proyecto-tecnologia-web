@@ -3,7 +3,9 @@ import { Link, useSearchParams } from "react-router-dom";
 import {
   obtenerProductos,
   obtenerCategorias,
+  obtenerProductores,
 } from "../services/api";
+
 
 const productos = [
   {
@@ -40,6 +42,7 @@ function Productos() {
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState("");
   const [categoriasAPI, setCategoriasAPI] = useState([]);
+  const [productoresAPI, setProductoresAPI] = useState([]);
 
   
   useEffect(() => {
@@ -75,6 +78,24 @@ function Productos() {
     cargarCategorias();
   }, []);
 
+  
+  useEffect(() => {
+    const cargarProductores = async () => {
+      try {
+        const datos = await obtenerProductores();
+        setProductoresAPI(datos);
+      } catch (error) {
+        console.error("Error al cargar productores:", error);
+        setError((anterior) =>
+          anterior || "No se pudieron cargar los productores."
+        );
+      }
+    };
+
+    cargarProductores();
+  }, []);
+
+
   const categorias = [
     "Todos",
     ...categoriasAPI.map((categoria) => categoria.nombre),
@@ -93,12 +114,18 @@ function Productos() {
     }
   };
 
+
   const productosFiltrados = productosAPI.filter((producto) => {
+    const categoriaSeleccionada = categoriasAPI.find(
+      (item) => item.nombre === categoria
+    );
+
     const coincideCategoria =
-      categoria === "Todos" || producto.categoria === categoria;
+      categoria === "Todos" ||
+      producto.categoria_id === categoriaSeleccionada?.id;
 
     const coincideBusqueda =
-      `${producto.nombre} ${producto.productor} ${producto.comuna || ""}`
+      producto.nombre
         .toLowerCase()
         .includes(busqueda.toLowerCase());
 
@@ -182,14 +209,27 @@ function Productos() {
                 Imagen del producto
               </div>
 
-              <div className="product-info">
-                <p className="product-category">{producto.categoria}</p>
-                <h3>{producto.nombre}</h3>
-
-                <p className="producer">
-                  {producto.productor}
-                  {producto.comuna ? ` · ${producto.comuna}` : ""}
+              <div className="product-info">                
+                <p className="product-category">
+                  {categoriasAPI.find(
+                    (categoria) => categoria.id === producto.categoria_id
+                  )?.nombre || "Sin categoría"}
                 </p>
+
+                <h3>{producto.nombre}</h3>
+                
+                <p className="producer">
+                  {(() => {
+                    const productor = productoresAPI.find(
+                      (item) => item.id === producto.productor_id
+                    );
+
+                    return productor
+                      ? `${productor.nombre}${productor.comuna ? ` · ${productor.comuna}` : ""}`
+                      : "Productor no disponible";
+                  })()}
+                </p>
+
 
                 <div className="product-bottom">
                   <strong>
