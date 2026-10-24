@@ -1,6 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { obtenerProductoPorId } from "../services/api";
+import {
+  obtenerProductoPorId,
+  registrarPrepedido,
+} from "../services/api";
 import "../styles/Prepedido.css";
 
 function Prepedido() {
@@ -10,6 +13,18 @@ function Prepedido() {
   const [cargandoProducto, setCargandoProducto] = useState(true);
   const [errorProducto, setErrorProducto] = useState("");
 
+  const [nombre, setNombre] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [cantidad, setCantidad] = useState(1);
+  const [confirmado, setConfirmado] = useState(false);
+  const [mostrarResumen, setMostrarResumen] = useState(false);
+  const [errores, setErrores] = useState({});
+  const [cargando, setCargando] = useState(false);
+  const [errorEnvio, setErrorEnvio] = useState("");
+  const [prepedidoRegistrado, setPrepedidoRegistrado] = useState(null);
+
+  const enviandoRef = useRef(false);
+
   useEffect(() => {
     let activo = true;
 
@@ -17,6 +32,14 @@ function Prepedido() {
       setCargandoProducto(true);
       setErrorProducto("");
       setProducto(null);
+      setConfirmado(false);
+      setMostrarResumen(false);
+      setErrorEnvio("");
+      setPrepedidoRegistrado(null);
+      setNombre("");
+      setTelefono("");
+      setCantidad(1);
+      setErrores({});
 
       try {
         const datos = await obtenerProductoPorId(id);
@@ -42,20 +65,10 @@ function Prepedido() {
     };
   }, [id]);
 
-
-  const [nombre, setNombre] = useState("");
-  const [telefono, setTelefono] = useState("");
-  const [cantidad, setCantidad] = useState(1);
-  const [confirmado, setConfirmado] = useState(false);
-  const [mostrarResumen, setMostrarResumen] = useState(false);
-  const [errores, setErrores] = useState({});
-  const [cargando, setCargando] = useState(false);
-  const validarCampo = (campo, valor) => {
-    let mensaje = "";
-
+  const obtenerError = (campo, valor) => {
     if (campo === "nombre") {
       if (valor.trim().length < 2) {
-        mensaje = "Ingresa un nombre de al menos 2 caracteres.";
+        return "Ingresa un nombre de al menos 2 caracteres.";
       }
     }
 
@@ -63,27 +76,94 @@ function Prepedido() {
       const telefonoLimpio = valor.replace(/\s/g, "");
 
       if (!/^\+?[0-9]{8,12}$/.test(telefonoLimpio)) {
-        mensaje = "Ingresa un teléfono válido de 8 a 12 dígitos.";
+        return "Ingresa un teléfono válido de 8 a 12 dígitos.";
       }
     }
 
     if (campo === "cantidad") {
-      if (!Number.isInteger(valor) || valor < 1) {
-        mensaje = "La cantidad debe ser un entero mayor a cero.";
+      if (
+        !Number.isSafeInteger(valor) ||
+        valor < 1 ||
+        valor > 100
+      ) {
+        return "La cantidad debe ser un entero entre 1 y 100.";
       }
     }
 
+    return "";
+  };
+
+  const validarCampo = (campo, valor) => {
     setErrores((anteriores) => ({
       ...anteriores,
-      [campo]: mensaje,
+      [campo]: obtenerError(campo, valor),
     }));
   };
 
+  const validarFormulario = () => {
+    const nuevosErrores = {
+      nombre: obtenerError("nombre", nombre),
+      telefono: obtenerError("telefono", telefono),
+      cantidad: obtenerError("cantidad", cantidad),
+    };
+
+    setErrores(nuevosErrores);
+
+    return !Object.values(nuevosErrores).some(Boolean);
+  };
+
+  const enviarPrepedido = (e) => {
+    e.preventDefault();
+
+    if (!validarFormulario()) {
+      return;
+    }
+
+    setErrorEnvio("");
+    setMostrarResumen(true);
+  };
+
+  const confirmarPrepedido = async () => {
+    if (enviandoRef.current || !producto) {
+      return;
+    }
+
+    if (!validarFormulario()) {
+      setMostrarResumen(false);
+      return;
+    }
+
+    enviandoRef.current = true;
+    setCargando(true);
+    setErrorEnvio("");
+
+    try {
+      const resultado = await registrarPrepedido({
+        productoId: producto.id,
+        nombre: nombre.trim(),
+        telefono: telefono.replace(/\s/g, ""),
+        cantidad,
+      });
+
+      setPrepedidoRegistrado(resultado.prepedido);
+      setConfirmado(true);
+      setMostrarResumen(false);
+    } catch (error) {
+      setErrorEnvio(
+        error.message || "No se pudo registrar el prepedido."
+      );
+    } finally {
+      enviandoRef.current = false;
+      setCargando(false);
+    }
+  };
 
   if (cargandoProducto) {
     return (
       <main className="prepedido-contenedor">
-        <p role="status">Cargando información del producto...</p>
+        <p role="status">
+          Cargando información del producto...
+        </p>
       </main>
     );
   }
@@ -98,7 +178,8 @@ function Prepedido() {
         </h1>
 
         <p role="alert">
-          {errorProducto || "El producto solicitado no está disponible."}
+          {errorProducto ||
+            "El producto solicitado no está disponible."}
         </p>
 
         <Link to="/productos" className="volver-inicio">
@@ -110,62 +191,42 @@ function Prepedido() {
 
   const total = producto.precio * cantidad;
 
-  
-  const enviarPrepedido = (e) => {
-    e.preventDefault();
-
-    const nuevosErrores = {};
-    const telefonoLimpio = telefono.replace(/\s/g, "");
-
-    if (nombre.trim().length < 2) {
-      nuevosErrores.nombre =
-        "Ingresa un nombre de al menos 2 caracteres.";
-    }
-
-    if (!/^\+?[0-9]{8,12}$/.test(telefonoLimpio)) {
-      nuevosErrores.telefono =
-        "Ingresa un teléfono válido de 8 a 12 dígitos.";
-    }
-
-    if (
-      !Number.isInteger(cantidad) ||
-      cantidad < 1
-    ) {
-      nuevosErrores.cantidad =
-        "La cantidad debe ser un número entero mayor a cero.";
-    }
-
-    setErrores(nuevosErrores);
-
-    if (Object.keys(nuevosErrores).length > 0) {
-      return;
-    }
-
-    // Demostración: todavía no existe envío al backend.
-    setMostrarResumen(true);
-  };
-
-
   return (
     <main className="prepedido-contenedor">
-      <Link to={`/productos/${id}`} className="volver-inicio">
+      <Link
+        to={`/productos/${id}`}
+        className="volver-inicio"
+      >
         ← Volver al producto
       </Link>
 
       <h1>Realizar prepedido</h1>
+
       <p>
         Completa tus datos para solicitar este producto
         de emprendedores locales de Chiloé.
       </p>
-      
+
       {mostrarResumen && !confirmado && (
-        <div className="prepedido-resumen" role="region" aria-label="Resumen del prepedido">
+        <div
+          className="prepedido-resumen"
+          role="region"
+          aria-label="Resumen del prepedido"
+        >
           <h2>Revisa tu prepedido</h2>
 
-          <p><strong>Producto:</strong> {producto.nombre}</p>
-          <p><strong>Nombre:</strong> {nombre.trim()}</p>
-          <p><strong>Teléfono:</strong> {telefono}</p>
-          <p><strong>Cantidad:</strong> {cantidad}</p>
+          <p>
+            <strong>Producto:</strong> {producto.nombre}
+          </p>
+          <p>
+            <strong>Nombre:</strong> {nombre.trim()}
+          </p>
+          <p>
+            <strong>Teléfono:</strong> {telefono}
+          </p>
+          <p>
+            <strong>Cantidad:</strong> {cantidad}
+          </p>
 
           <p className="resumen-total">
             <strong>
@@ -173,16 +234,21 @@ function Prepedido() {
             </strong>
           </p>
 
-          <p className="resumen-aviso">
-            Esta es una demostración. No se enviará
-            ninguna solicitud al productor.
-          </p>
+          {errorEnvio && (
+            <p className="campo-error" role="alert">
+              {errorEnvio}
+            </p>
+          )}
 
           <div className="resumen-acciones">
             <button
               type="button"
               className="resumen-volver"
-              onClick={() => setMostrarResumen(false)}
+              disabled={cargando}
+              onClick={() => {
+                setErrorEnvio("");
+                setMostrarResumen(false);
+              }}
             >
               Modificar datos
             </button>
@@ -192,98 +258,135 @@ function Prepedido() {
               className="prepedido-boton"
               disabled={cargando}
               aria-busy={cargando}
-              onClick={() => {
-                if (cargando) return;
-
-                setCargando(true);
-
-                // Simulación local: no se envían datos.
-                setTimeout(() => {
-                  setConfirmado(true);
-                  setMostrarResumen(false);
-                  setCargando(false);
-                }, 1500);
-              }}
+              onClick={confirmarPrepedido}
             >
-              {cargando ? "Preparando solicitud..." : "Confirmar demostración"}
+              {cargando
+                ? "Registrando prepedido..."
+                : "Confirmar prepedido"}
             </button>
           </div>
         </div>
       )}
 
       {confirmado ? (
-        <div className="prepedido-confirmacion" role="status">
-          <h2>¡Solicitud preparada!</h2>
+        <div
+          className="prepedido-confirmacion"
+          role="status"
+        >
+          <h2>¡Prepedido registrado!</h2>
+
           <p>
-            Este es un prepedido de demostración.
-            Aún no se ha enviado ni guardado.
+            Tu solicitud fue registrada correctamente.
           </p>
-          <Link to="/productos" className="prepedido-boton">
+
+          {prepedidoRegistrado && (
+            <>
+              <p>
+                <strong>Número de solicitud:</strong>{" "}
+                {prepedidoRegistrado.id}
+              </p>
+              <p>
+                <strong>Estado:</strong>{" "}
+                {prepedidoRegistrado.estado}
+              </p>
+              <p>
+                <strong>Total:</strong> $
+                {prepedidoRegistrado.total.toLocaleString("es-CL")}
+              </p>
+            </>
+          )}
+
+          <Link
+            to="/productos"
+            className="prepedido-boton"
+          >
             Volver a productos
           </Link>
         </div>
       ) : (
-        <form onSubmit={enviarPrepedido} noValidate className="prepedido-formulario">
+        <form
+          onSubmit={enviarPrepedido}
+          noValidate
+          className="prepedido-formulario"
+        >
           <h2>{producto.nombre}</h2>
 
           <p>
-            Precio unitario:
+            Precio unitario:{" "}
             <strong>
-              {" "}${producto.precio.toLocaleString("es-CL")}
+              ${producto.precio.toLocaleString("es-CL")}
             </strong>
           </p>
 
-          <label htmlFor="nombre">Nombre completo</label>
+          <label htmlFor="nombre">
+            Nombre completo
+          </label>
           <input
             id="nombre"
             type="text"
             value={nombre}
-            onChange={(e) => {const valor = e.target.value;setNombre(valor);validarCampo("nombre", valor);}}
+            disabled={mostrarResumen}
+            onChange={(e) => {
+              const valor = e.target.value;
+              setNombre(valor);
+              validarCampo("nombre", valor);
+            }}
             placeholder="Ingresa tu nombre"
             minLength={2}
             required
             aria-invalid={Boolean(errores.nombre)}
           />
+
           {errores.nombre && (
             <p className="campo-error" role="alert">
               {errores.nombre}
             </p>
           )}
 
-          <label htmlFor="telefono">Teléfono de contacto</label>
+          <label htmlFor="telefono">
+            Teléfono de contacto
+          </label>
           <input
             id="telefono"
             type="tel"
             value={telefono}
-            onChange={(e) => {const valor = e.target.value;setTelefono(valor);validarCampo("telefono", valor);}}
+            disabled={mostrarResumen}
+            onChange={(e) => {
+              const valor = e.target.value;
+              setTelefono(valor);
+              validarCampo("telefono", valor);
+            }}
             placeholder="Ej: +56912345678"
-            pattern="\+?[0-9]{8,12}"
-            title="Ingresa entre 8 y 12 dígitos, opcionalmente con + al inicio"
             required
             aria-invalid={Boolean(errores.telefono)}
           />
+
           {errores.telefono && (
             <p className="campo-error" role="alert">
               {errores.telefono}
             </p>
           )}
 
-          <label htmlFor="cantidad">Cantidad</label>
+          <label htmlFor="cantidad">
+            Cantidad
+          </label>
           <input
             id="cantidad"
             type="number"
             min="1"
+            max="100"
             step="1"
             value={cantidad}
+            disabled={mostrarResumen}
             onChange={(e) => {
               const valor = Number(e.target.value);
-              
               setCantidad(valor);
               validarCampo("cantidad", valor);
             }}
             required
             aria-invalid={Boolean(errores.cantidad)}
           />
+
           {errores.cantidad && (
             <p className="campo-error" role="alert">
               {errores.cantidad}
@@ -292,11 +395,17 @@ function Prepedido() {
 
           <div className="prepedido-total">
             <span>Total estimado</span>
-            <strong>${total.toLocaleString("es-CL")}</strong>
+            <strong>
+              ${total.toLocaleString("es-CL")}
+            </strong>
           </div>
 
-          <button type="submit" className="prepedido-boton">
-            Confirmar prepedido
+          <button
+            type="submit"
+            className="prepedido-boton"
+            disabled={mostrarResumen || cargando}
+          >
+            Revisar prepedido
           </button>
         </form>
       )}

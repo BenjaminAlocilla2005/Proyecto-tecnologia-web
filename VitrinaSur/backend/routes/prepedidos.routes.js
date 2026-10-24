@@ -8,8 +8,9 @@ const {
 
 router.post("/", crearPrepedido);
 
-// Ruta de consulta para pruebas locales.
-// Proteger o eliminar antes de publicar el proyecto.
-router.get("/", obtenerPrepedidos);
+// Solo para pruebas locales. No publicar sin autenticación.
+if (process.env.NODE_ENV !== "production") {
+  router.get("/", obtenerPrepedidos);
+}
 
 module.exports = router;

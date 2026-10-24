@@ -28,9 +28,14 @@ const crearPrepedido = (req, res) => {
     });
   }
 
-  if (!Number.isInteger(cantidadNumero) || cantidadNumero < 1) {
+  if (
+    typeof cantidad !== "number" ||
+    !Number.isSafeInteger(cantidadNumero) ||
+    cantidadNumero < 1 ||
+    cantidadNumero > 100
+  ) {
     return res.status(400).json({
-      mensaje: "La cantidad debe ser un entero mayor a cero.",
+      mensaje: "La cantidad debe ser un entero entre 1 y 100.",
     });
   }
 
@@ -62,7 +67,4 @@ const obtenerPrepedidos = (req, res) => {
   res.json(Prepedido.obtenerTodos());
 };
 
-module.exports = {
-  crearPrepedido,
-  obtenerPrepedidos,
-};
+module.exports = { crearPrepedido, obtenerPrepedidos };
