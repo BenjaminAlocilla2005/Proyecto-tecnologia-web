@@ -5,13 +5,23 @@ const verificarToken = async (req, res, next) => {
   try {
     const autorizacion = req.headers.authorization;
 
-    if (!autorizacion || !autorizacion.startsWith("Bearer ")) {
+    // Token enviado mediante Authorization: Bearer
+    const tokenBearer =
+      autorizacion?.startsWith("Bearer ")
+        ? autorizacion.slice(7)
+        : null;
+
+    // Token enviado mediante cookie HttpOnly
+    const tokenCookie = req.cookies?.vitrinasur_token;
+
+    // Priorizar Bearer para conservar compatibilidad con el CRUD
+    const token = tokenBearer || tokenCookie;
+
+    if (!token) {
       return res.status(401).json({
         mensaje: "Debes iniciar sesión",
       });
     }
-
-    const token = autorizacion.slice(7);
 
     const datos = jwt.verify(token, process.env.JWT_SECRET);
 
