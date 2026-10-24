@@ -32,3 +32,47 @@ export const obtenerProductores = async () => {
 
   return respuesta.json();
 };
+
+
+export const registrarPrepedido = async (datos) => {
+  const respuesta = await fetch(`${API_URL}/prepedidos`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(datos),
+  });
+
+  let resultado;
+
+  try {
+    resultado = await respuesta.json();
+  } catch {
+    throw new Error("El servidor devolvió una respuesta inválida.");
+  }
+
+  if (!respuesta.ok) {
+    throw new Error(
+      resultado.mensaje || "No se pudo registrar el prepedido."
+    );
+  }
+
+  return resultado;
+};
+
+
+export const obtenerProductoPorId = async (id) => {
+  const respuesta = await fetch(
+    `${API_URL}/productos/${encodeURIComponent(id)}`
+  );
+
+  if (!respuesta.ok) {
+    if (respuesta.status === 404) {
+      throw new Error("Producto no encontrado");
+    }
+
+    throw new Error("Error al obtener el producto");
+  }
+
+  return respuesta.json();
+};
