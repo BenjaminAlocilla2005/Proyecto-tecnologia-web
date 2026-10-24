@@ -1,10 +1,69 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import {
+  obtenerProductos,
+  obtenerCategorias,
+  obtenerProductores,
+} from "../services/api";
+
 import mermeladaDestacada from "../assets/destacados/mermelada-destacada.jpg";
 import tejidoDestacado from "../assets/destacados/tejido-destacado.jpg";
-import mariscosDestacados from "../assets/destacados/mariscos-destacados.jpg";
+import mielImg from "../assets/productos/miel.jpg";
+
+const imagenesDestacadas = {
+  1: mielImg,
+  2: tejidoDestacado,
+  3: mermeladaDestacada,
+};
+
 
 function Inicio() {
+  const [productos, setProductos] = useState([]);
+  const [categorias, setCategorias] = useState([]);
+  const [productores, setProductores] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    let activo = true;
+
+    const cargarDestacados = async () => {
+      try {
+        const [datosProductos, datosCategorias, datosProductores] =
+          await Promise.all([
+            obtenerProductos(),
+            obtenerCategorias(),
+            obtenerProductores(),
+          ]);
+
+        if (!activo) return;
+
+        setProductos(
+          datosProductos.filter((producto) =>
+            [1, 2, 3].includes(Number(producto.id))
+          )
+        );
+
+        setCategorias(datosCategorias);
+        setProductores(datosProductores);
+      } catch (err) {
+        if (activo) {
+          setError("No se pudieron cargar los productos destacados.");
+        }
+      } finally {
+        if (activo) setCargando(false);
+      }
+    };
+
+    cargarDestacados();
+
+    return () => {
+      activo = false;
+    };
+  }, []);
+
   return (
+
     <div className="app">
       {/* Contenido principal */}
       <main>
@@ -96,82 +155,64 @@ function Inicio() {
             </Link>
           </div>
 
+          
           <div className="products">
-            <Link to="/productos/1" className="product-card product-card-link">
-              <div className="product-image">
-                <img
-                  src={mermeladaDestacada}
-                  alt="Mermelada artesanal"
-                  loading="lazy"
-                />
-              </div>
+            {cargando && <p>Cargando productos destacados...</p>}
 
-              <div className="product-info">
-                <p className="product-category">Alimentos</p>
+            {error && <p role="alert">{error}</p>}
 
-                <h3>Mermelada artesanal</h3>
+            {!cargando && !error && productos.map((producto) => {
+              const categoria = categorias.find(
+                (item) => Number(item.id) === Number(producto.categoria_id)
+              );
 
-                <p className="producer">
-                  Productora local · Castro
-                </p>
+              const productor = productores.find(
+                (item) => Number(item.id) === Number(producto.productor_id)
+              );
 
-                <div className="product-bottom">
-                  <strong>$5.000</strong>
-                  <span className="available">Disponible</span>
-                </div>
-              </div>
-            </Link>
+              return (
+                <Link
+                  to={`/productos/${producto.id}`}
+                  className="product-card product-card-link"
+                  key={producto.id}
+                >
+                  <div className="product-image">
+                    {imagenesDestacadas[producto.id] ? (
+                      <img
+                        src={imagenesDestacadas[producto.id]}
+                        alt={producto.nombre}
+                        loading="lazy"
+                      />
+                    ) : (
+                      <span>Imagen no disponible</span>
+                    )}
+                  </div>
 
-            <Link to="/productos/2" className="product-card product-card-link">
-              <div className="product-image">
-                <img
-                  src={tejidoDestacado}
-                  alt="Tejido tradicional"
-                  loading="lazy"
-                />
-              </div>
+                  <div className="product-info">
+                    <p className="product-category">
+                      {categoria?.nombre || "Sin categoría"}
+                    </p>
 
-              <div className="product-info">
-                <p className="product-category">Artesanía</p>
+                    <h3>{producto.nombre}</h3>
 
-                <h3>Tejido tradicional</h3>
+                    <p className="producer">
+                      {productor
+                        ? `${productor.nombre}${productor.comuna ? ` · ${productor.comuna}` : ""}`
+                        : "Productor no disponible"}
+                      </p>
 
-                <p className="producer">
-                  Artesana local · Chonchi
-                </p>
-
-                <div className="product-bottom">
-                  <strong>$15.000</strong>
-                  <span className="available">Disponible</span>
-                </div>
-              </div>
-            </Link>
-
-            <Link to="/productos/3" className="product-card product-card-link">
-              <div className="product-image">
-                <img
-                  src={mariscosDestacados}
-                  alt="Productos del mar de Chiloé"
-                  loading="lazy"
-                />
-              </div>
-
-              <div className="product-info">
-                <p className="product-category">Alimentos</p>
-
-                <h3>Producto del mar</h3>
-
-                <p className="producer">
-                  Productor local · Quellón
-                </p>
-
-                <div className="product-bottom">
-                  <strong>$8.000</strong>
-                  <span className="available">Disponible</span>
-                </div>
-              </div>
-            </Link>
+                    <div className="product-bottom">
+                      <strong>
+                        ${Number(producto.precio).toLocaleString("es-CL")}
+                      </strong>
+                      <span className="available">Disponible</span>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
+
         </section>
 
         {/* Productores */}
