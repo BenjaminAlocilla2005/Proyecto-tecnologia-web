@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom";
+import mermeladaDestacada from "../assets/destacados/mermelada-destacada.jpg";
+import tejidoDestacado from "../assets/destacados/tejido-destacado.jpg";
+import mariscosDestacados from "../assets/destacados/mariscos-destacados.jpg";
 
 function Inicio() {
   return (
@@ -96,7 +99,11 @@ function Inicio() {
           <div className="products">
             <Link to="/productos/1" className="product-card product-card-link">
               <div className="product-image">
-                Imagen del producto
+                <img
+                  src={mermeladaDestacada}
+                  alt="Mermelada artesanal"
+                  loading="lazy"
+                />
               </div>
 
               <div className="product-info">
@@ -117,7 +124,11 @@ function Inicio() {
 
             <Link to="/productos/2" className="product-card product-card-link">
               <div className="product-image">
-                Imagen del producto
+                <img
+                  src={tejidoDestacado}
+                  alt="Tejido tradicional"
+                  loading="lazy"
+                />
               </div>
 
               <div className="product-info">
@@ -138,7 +149,11 @@ function Inicio() {
 
             <Link to="/productos/3" className="product-card product-card-link">
               <div className="product-image">
-                Imagen del producto
+                <img
+                  src={mariscosDestacados}
+                  alt="Productos del mar de Chiloé"
+                  loading="lazy"
+                />
               </div>
 
               <div className="product-info">
