@@ -6,7 +6,7 @@ node_modules/
 dist/
 **/dist/
 
-# Variables de entorno privadas
+# Variables de entorno
 .env
 .env.*
 !.env.example
