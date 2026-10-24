@@ -146,3 +146,14 @@
   outline: 2px solid #236933;
   outline-offset: 2px;
 }
+
+.auth-success {
+  background-color: #e8f5e9;
+  color: #236933;
+  border: 1px solid #a5d6a7;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin: 16px 0;
+  font-size: 14px;
+  text-align: center;
+}

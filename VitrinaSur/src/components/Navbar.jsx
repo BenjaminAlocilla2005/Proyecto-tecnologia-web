@@ -36,7 +36,7 @@ function Navbar() {
         </Link>
 
         <Link
-          to="/categorias/"
+          to="/categorias"
           onClick={cerrarMenu}
         >
           Categorías
