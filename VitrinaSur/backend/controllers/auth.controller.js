@@ -26,8 +26,8 @@ const registrar = async (req, res, next) => {
 
     if (
       typeof email !== "string" ||
-      email.length > 255 ||
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+      email.trim().length > 255 ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
     ) {
       return res.status(400).json({
         mensaje: "Correo electrónico inválido",

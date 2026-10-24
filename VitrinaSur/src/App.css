@@ -647,3 +647,30 @@ button {
 .titulo-todos-productos {
   color: #202624;
 }
+
+.nav-usuario {
+  color: #236933;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.nav-cerrar-sesion {
+  background-color: #236933;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.nav-cerrar-sesion:hover {
+  background-color: #194d25;
+}
+
+.nav-cerrar-sesion:focus-visible {
+  outline: 2px solid #236933;
+  outline-offset: 3px;
+}

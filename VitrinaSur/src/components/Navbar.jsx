@@ -1,12 +1,19 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/vitrinasur.png";
+import { useAuth } from "../context/AuthContext";
 
 function Navbar() {
   const [menuAbierto, setMenuAbierto] = useState(false);
+  const { usuario, cerrarSesion } = useAuth();
 
   const cerrarMenu = () => {
     setMenuAbierto(false);
+  };
+
+  const manejarCerrarSesion = () => {
+    cerrarSesion();
+    cerrarMenu();
   };
 
   return (
@@ -38,6 +45,34 @@ function Navbar() {
         <Link to="/productores" onClick={cerrarMenu}>
           Productores
         </Link>
+
+        
+        {usuario ? (
+          <>
+            <span className="nav-usuario">
+              Hola, {usuario.nombre}
+            </span>
+
+            <button
+              type="button"
+              className="nav-cerrar-sesion"
+              onClick={manejarCerrarSesion}
+            >
+              Cerrar sesión
+            </button>
+          </>
+        ) : (
+          <>
+            <Link to="/login" onClick={cerrarMenu}>
+              Iniciar sesión
+            </Link>
+
+            <Link to="/registro" onClick={cerrarMenu}>
+              Registrarse
+            </Link>
+          </>
+        )}
+
       </nav>
 
       <button
