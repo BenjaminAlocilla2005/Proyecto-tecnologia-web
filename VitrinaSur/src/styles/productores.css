@@ -100,3 +100,16 @@
     grid-template-columns: 1fr;
   }
 }
+
+.productor-imagen {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+}
+
+.productor-imagen img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

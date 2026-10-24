@@ -2,7 +2,15 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { obtenerProductores } from "../services/api";
 import "../styles/Productores.css";
+import productoresImg from "../assets/productores/productores-chiloe.jpg";
+import artesanasImg from "../assets/productores/artesanas-chiloe.jpg";
+import emprendimientosImg from "../assets/productores/emprendimientos-locales.jpg";
 
+const imagenesProductores = {
+  1: productoresImg,
+  2: artesanasImg,
+  3: emprendimientosImg,
+};
 
 function Productores() {
   const [productores, setProductores] = useState([]);
@@ -55,9 +63,17 @@ function Productores() {
             key={productor.id}
           >
             <div className="productor-imagen">
-              <span>{productor.categoria}</span>
+              {imagenesProductores[productor.id] ? (
+                <img
+                  src={imagenesProductores[productor.id]}
+                  alt={productor.nombre}
+                  loading="lazy"
+                />
+              ) : (
+                <span>{productor.categoria}</span>
+              )}
             </div>
-
+            
             <div className="productor-info">
               <h2>{productor.nombre}</h2>
 
