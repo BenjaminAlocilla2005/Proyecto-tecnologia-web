@@ -778,8 +778,9 @@ button {
   }
 
   .nav.nav-open .nav-cerrar-sesion {
-    align-self: flex-start;
-    margin: 10px;
+    align-self: center;
+    margin: 12px auto;
+    text-align: center;
   }
 }
 
