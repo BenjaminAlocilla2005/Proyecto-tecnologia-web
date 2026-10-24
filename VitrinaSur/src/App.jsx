@@ -7,6 +7,9 @@ import Categorias from "./pages/Categorias";
 import DetalleProducto from "./pages/DetalleProducto";
 import Prepedido from "./pages/Prepedido";
 import "./App.css";
+import IniciarSesion from "./pages/IniciarSesion";
+import Registro from "./pages/Registro";
+import "./styles/Auth.css";
 
 function App() {
   return (
@@ -20,6 +23,8 @@ function App() {
         <Route path="/categorias" element={<Categorias />} />
         <Route path="/productos/:id" element={<DetalleProducto />} />
         <Route path="/prepedido/:id" element={<Prepedido />} />
+        <Route path="/login" element={<IniciarSesion />} />
+        <Route path="/registro" element={<Registro />} />
         <Route
           path="*"
           element={

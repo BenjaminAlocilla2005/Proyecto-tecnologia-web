@@ -1,0 +1,148 @@
+.auth-page {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  background-color: #f8f6ef;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  background-color: #ffffff;
+  padding: 36px;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.auth-card h1 {
+  color: #202624;
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.auth-card > p {
+  color: #555;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-card label {
+  color: #202624;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.auth-card input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 15px;
+  background-color: #fff;
+  color: #202624;
+}
+
+.auth-card input:focus {
+  outline: 2px solid #236933;
+  outline-offset: 1px;
+  border-color: #236933;
+}
+
+.auth-card button {
+  width: 100%;
+  margin-top: 12px;
+  padding: 13px;
+  background-color: #236933;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.auth-card button:hover:not(:disabled) {
+  background-color: #194d25;
+}
+
+.auth-card button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-card a {
+  color: #236933;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-card a:hover {
+  text-decoration: underline;
+}
+
+.auth-error {
+  color: #b42318 !important;
+  background-color: #fff1f0;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 24px;
+  }
+
+  .auth-card h1 {
+    font-size: 26px;
+  }
+}
+
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+.password-container input {
+  padding-right: 50px;
+}
+
+.auth-card .password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 19px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-card .password-toggle:hover:not(:disabled) {
+  background: transparent;
+}
+
+.auth-card .password-toggle:focus-visible {
+  outline: 2px solid #236933;
+  outline-offset: 2px;
+}
