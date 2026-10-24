@@ -643,3 +643,7 @@ button {
     gap: 10px;
   }
 }
+
+.titulo-todos-productos {
+  color: #202624;
+}

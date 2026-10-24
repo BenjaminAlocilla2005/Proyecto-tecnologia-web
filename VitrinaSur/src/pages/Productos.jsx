@@ -160,7 +160,9 @@ function Productos() {
           </div>
         </div>
 
-        <h2>Todos los productos</h2>
+        <h2 className="titulo-todos-productos">
+          Todos los productos
+        </h2>
         {cargando && (
           <p className="sin-resultados">
             Cargando productos...
