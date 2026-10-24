@@ -291,7 +291,7 @@ function Prepedido() {
               </p>
               <p>
                 <strong>Total:</strong> $
-                {prepedidoRegistrado.total.toLocaleString("es-CL")}
+                {Number(prepedidoRegistrado.total).toLocaleString("es-CL")}
               </p>
             </>
           )}
