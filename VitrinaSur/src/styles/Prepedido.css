@@ -31,6 +31,7 @@
 .prepedido-formulario label {
   font-weight: 600;
   margin-top: 10px;
+  color: #202624;
 }
 
 .prepedido-formulario input {
@@ -39,6 +40,8 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   font: inherit;
+  color: #202624;
+  background-color: #fff;
 }
 
 .prepedido-formulario input:focus {
@@ -116,10 +119,6 @@
 .prepedido-formulario input:focus-visible {
   outline: 2px solid #236933;
   outline-offset: 2px;
-}
-
-.prepedido-formulario input:invalid:not(:focus) {
-  border-color: #b42318;
 }
 
 /* Validación en tiempo real */
