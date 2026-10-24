@@ -98,16 +98,27 @@ const iniciarSesion = async (req, res, next) => {
       });
     }
 
-    return res.json({
-      mensaje: "Inicio de sesión correcto",
-      token: generarToken(usuario),
-      usuario: {
-        id: usuario.id,
-        nombre: usuario.nombre,
-        email: usuario.email,
-        rol: usuario.rol,
-      },
-    });
+    const token = generarToken(usuario);
+
+  res.cookie("vitrinasur_token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    maxAge: 2 * 60 * 60 * 1000,
+    path: "/",
+  });
+
+  return res.json({
+    mensaje: "Inicio de sesión correcto",
+    token,
+    usuario: {
+      id: usuario.id,
+      nombre: usuario.nombre,
+      email: usuario.email,
+      rol: usuario.rol,
+    },
+  });
+  
   } catch (error) {
     next(error);
   }
