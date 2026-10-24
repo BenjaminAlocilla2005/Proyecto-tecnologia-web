@@ -14,8 +14,14 @@ const obtenerProductos = async (req, res) => {
 };
 
 // Obtener un producto por su ID
-const obtenerProductoPorId = async (req, res) => {
+const obtenerProductoPorId = async (req, res, next) => {
   try {
+    if (!validarId(req.params.id)) {
+      return res.status(400).json({
+        mensaje: "ID de producto inválido",
+      });
+    }
+
     const producto = await Producto.obtenerPorId(req.params.id);
 
     if (!producto) {
@@ -24,12 +30,9 @@ const obtenerProductoPorId = async (req, res) => {
       });
     }
 
-    res.json(producto);
+    return res.status(200).json(producto);
   } catch (error) {
-    console.error("Error al obtener producto:", error);
-    res.status(500).json({
-      mensaje: "Error al obtener el producto",
-    });
+    next(error);
   }
 };
 
