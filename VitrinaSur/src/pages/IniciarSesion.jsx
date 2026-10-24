@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function IniciarSesion() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const mensajeRegistro = location.state?.mensaje;
   const { iniciarSesion } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -55,6 +57,12 @@ function IniciarSesion() {
       <div className="auth-card">
         <h1>Iniciar sesión</h1>
         <p>Bienvenido nuevamente a VitrinaSur</p>
+
+        {mensajeRegistro && (
+          <p className="auth-success" role="status">
+            {mensajeRegistro}
+          </p>
+        )}
 
         <form onSubmit={manejarEnvio}>
           <label htmlFor="login-email">
