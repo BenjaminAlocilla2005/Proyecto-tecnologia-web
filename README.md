@@ -271,13 +271,96 @@ git commit -m "chore(config): agregar archivo de entorno"
 * Distribuir el trabajo y las responsabilidades entre ambos integrantes.
 * No crear commits artificiales solo para aumentar la cantidad.
 
-## 👥 13. Integrantes y distribución de roles
+## 🚀 13. Cómo levantar el backend (Express + PostgreSQL)
+
+El backend de VitrinaSur se encuentra en `VitrinaSur/backend`, utiliza Node.js y Express, y se conecta a PostgreSQL para consultar productos, categorías y productores y registrar prepedidos.
+
+### Requisitos
+
+- Node.js y npm instalados.
+- PostgreSQL instalado y ejecutándose (puerto habitual: `5432`).
+- Base de datos `vitrinasur` creada, con las tablas `productos`, `categorias`, `productores` y `prepedidos` y sus datos iniciales. **La instalación de npm no crea estas tablas automáticamente.**
+
+### Paso 1. Instalar dependencias del backend
+
+Desde la raíz del repositorio:
+
+```bash
+cd VitrinaSur/backend
+npm install
+```
+
+Si ya estás dentro de `VitrinaSur`, utiliza `cd backend`.
+
+### Paso 2. Configurar la conexión a PostgreSQL
+
+Revisa `backend/config/db.js` para identificar los **nombres exactos** de las variables de entorno utilizadas. Crea `VitrinaSur/backend/.env` y configura los valores correspondientes a tu instalación de PostgreSQL.
+
+Como referencia, una configuración habitual es:
+
+```dotenv
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=postgres
+DB_PASSWORD=REEMPLAZAR_CON_TU_CONTRASEÑA
+DB_NAME=vitrinasur
+PORT=3001
+```
+
+> **Importante:** este bloque es orientativo: los nombres deben coincidir con `backend/config/db.js`. No subas `.env` al repositorio ni compartas credenciales. Es recomendable mantener un `backend/.env.example` sin secretos.
+
+### Paso 3. Iniciar el backend
+
+Desde `VitrinaSur/backend`:
+
+```bash
+npm run dev
+```
+
+El backend debe quedar disponible en `http://localhost:3001`. Mantén abierta esta terminal mientras utilizas la aplicación.
+
+### Paso 4. Verificar la API
+
+Con el servidor iniciado, comprueba estas rutas en el navegador:
+
+- `http://localhost:3001/api/productos`
+- `http://localhost:3001/api/productos/1`
+- `http://localhost:3001/api/categorias`
+- `http://localhost:3001/api/productores`
+
+Para registrar prepedidos se utiliza `POST http://localhost:3001/api/prepedidos`, normalmente desde el formulario del frontend. La consulta `GET /api/prepedidos` puede estar disponible solo en desarrollo.
+
+### Paso 5. Iniciar el frontend
+
+En **otra terminal**, desde la carpeta `VitrinaSur`:
+
+```bash
+npm install
+npm run dev
+```
+
+Abre `http://localhost:5173` (o la URL que indique Vite). Para consultar datos y registrar prepedidos deben estar ejecutándose tanto PostgreSQL como el backend.
+
+### Solución de problemas frecuentes
+
+- **`ERR_CONNECTION_REFUSED`**: comprueba que el backend esté iniciado en el puerto `3001`.
+- **Error de autenticación de PostgreSQL**: revisa usuario, contraseña y configuración del archivo `.env`.
+- **Error de relación o tabla inexistente**: crea o restaura el esquema y los datos de la base de datos `vitrinasur`.
+- **`Cannot find module`**: ejecuta `npm install` dentro de `VitrinaSur/backend`.
+
+Para comprobar las dependencias:
+
+```bash
+npm audit
+```
+
+## 👥 14. Integrantes y distribución de roles
 | Integrante        | Roles principales        |
 | ----------------- | ------------------------ |
-| Bryan Cárcamo     | Por definir              |
-| Benjamín Alocilla | Por definir              |
+| Bryan Cárcamo     | Frontend y Backend       |
+| Benjamín Alocilla | Imágenes de Productos    |
 
-## 🧪 14. Pruebas y control de calidad
+## 🧪 15. Pruebas y control de calidad
 Lista de comprobación para la entrega:
 
 * [ ] La interfaz coincide con los mockups de Figma.
@@ -291,7 +374,7 @@ Lista de comprobación para la entrega:
 * [ ] El repositorio no contiene credenciales privadas.
 * [ ] La documentación coincide con el código.
 
-## 🛠️ 15. Herramientas de desarrollo
+## 🛠️ 16. Herramientas de desarrollo
 * Visual Studio Code.
 * React y Vite.
 * JavaScript, HTML5 y CSS3.
@@ -299,13 +382,13 @@ Lista de comprobación para la entrega:
 * Figma.
 * Canva.
 
-## 📌 16. Estado del proyecto
+## 📌 17. Estado del proyecto
 VitrinaSur es un proyecto de desarrollo web enfocado en la visibilización de productos y productores locales de Chiloé.
 
 Su objetivo es ofrecer una experiencia web accesible, responsiva y organizada, que permita explorar productos y facilitar la coordinación de prepedidos.
 
 La documentación debe mantenerse actualizada de acuerdo con las funcionalidades y la arquitectura efectivamente implementadas.
 
-## 📄 17. Licencia
+## 📄 18. Licencia
 
 La licencia del proyecto queda pendiente de definición por parte de sus integrantes y de las condiciones de la entrega académica.
