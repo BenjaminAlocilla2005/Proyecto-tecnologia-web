@@ -12,6 +12,7 @@ export default function Header() {
         <Link to="/productos">Productos</Link>
         <a href="/#categorias">Categorías</a>
         <Link to="/productores">Productores</Link>
+        <Link to="/agregar">Agregar Producto</Link>
       </nav>
 
       <button className="menu-button" aria-label="Abrir menú">

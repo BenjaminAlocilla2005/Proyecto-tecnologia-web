@@ -1,6 +1,15 @@
-import { productores } from '../data/datos'
+import { useState, useEffect } from 'react';
 
 export default function Productores() {
+  const [productores, setProductores] = useState([]);
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/api/productores`)
+      .then(res => res.json())
+      .then(data => setProductores(data))
+      .catch(err => console.error("Error cargando productores:", err));
+  }, []);
+
   return (
     <section className="section">
       <h2>Productores</h2>
@@ -16,5 +25,5 @@ export default function Productores() {
         ))}
       </div>
     </section>
-  )
+  );
 }
