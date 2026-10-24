@@ -77,13 +77,14 @@ button {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 32px;
+  gap: 20px;
 }
 
 .nav a {
   color: #202624;
   text-decoration: none;
   font-size: 15px;
+  white-space: nowrap;
 }
 
 .menu-button {
@@ -458,7 +459,7 @@ button {
 /* =========================
    RESPONSIVE
 ========================= */
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
   .header { padding: 18px 5%; position: relative; }
   .nav { display: none; }
   .menu-button { display: block; }
@@ -713,5 +714,85 @@ button {
 @media (max-width: 600px) {
   .category-photo {
     height: 120px;
+  }
+}
+
+/* CORRECCIÓN RESPONSIVE DEL NAVBAR */
+
+.header {
+  min-width: 0;
+}
+
+.logo {
+  flex-shrink: 0;
+}
+
+.nav {
+  min-width: 0;
+}
+
+.nav a,
+.nav-usuario {
+  white-space: nowrap;
+}
+
+@media (max-width: 1100px) {
+  .header {
+    position: relative;
+    justify-content: space-between;
+  }
+
+  .menu-button {
+    display: block;
+    flex-shrink: 0;
+    color: #202624;
+    z-index: 101;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .nav.nav-open {
+    display: flex;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 12px 5%;
+    background: white;
+    border-bottom: 1px solid #e5e5e5;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+    z-index: 100;
+  }
+
+  .nav.nav-open a,
+  .nav.nav-open .nav-usuario {
+    display: block;
+    padding: 14px 10px;
+    white-space: normal;
+  }
+
+  .nav.nav-open .nav-cerrar-sesion {
+    align-self: flex-start;
+    margin: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 12px 5%;
+  }
+
+  .logo img {
+    width: 135px;
+  }
+
+  .menu-button {
+    font-size: 26px;
   }
 }

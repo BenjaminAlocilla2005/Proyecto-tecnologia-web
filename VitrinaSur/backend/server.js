@@ -1,6 +1,7 @@
 const express = require("express");
 const pool = require("./config/db");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const app = express();
 const productosRoutes = require("./routes/productos.routes");
 const categoriasRoutes = require("./routes/categorias.routes");
@@ -11,12 +12,15 @@ const authRoutes = require("./routes/auth.routes");
 const PORT = 3001;
 
 // Permitir solicitudes desde el frontend React
+// Permitir solicitudes desde el frontend React
 app.use(cors({
-  origin: "http://localhost:5173"
+  origin: "http://localhost:5173",
+  credentials: true
 }));
 
 // Permitir recibir datos en formato JSON
 app.use(express.json());
+app.use(cookieParser());
 app.use("/api/productos", productosRoutes);
 app.use("/api/categorias", categoriasRoutes);
 app.use("/api/productores", productoresRoutes);
