@@ -1,4 +1,16 @@
+# Dependencias
 node_modules/
+**/node_modules/
+
+# Compilación
 dist/
+**/dist/
+
+# Variables de entorno privadas
 .env
-.env.local
+.env.*
+!.env.example
+
+# Archivos temporales
+*.log
+.DS_Store
