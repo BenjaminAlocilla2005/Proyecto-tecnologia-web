@@ -4,6 +4,7 @@ const app = express();
 const productosRoutes = require("./routes/productos.routes");
 const categoriasRoutes = require("./routes/categorias.routes");
 const productoresRoutes = require("./routes/productores.routes");
+const prepedidosRoutes = require("./routes/prepedidos.routes");
 
 const PORT = 3001;
 
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use("/api/productos", productosRoutes);
 app.use("/api/categorias", categoriasRoutes);
 app.use("/api/productores", productoresRoutes);
+app.use("/api/prepedidos", prepedidosRoutes);
 
 // Ruta de prueba
 app.get("/", (req, res) => {
