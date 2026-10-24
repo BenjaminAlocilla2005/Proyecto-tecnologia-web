@@ -9,6 +9,10 @@ import {
 import mermeladaDestacada from "../assets/destacados/mermelada-destacada.jpg";
 import tejidoDestacado from "../assets/destacados/tejido-destacado.jpg";
 import mielImg from "../assets/productos/miel.jpg";
+import alimentosImg from "../assets/categorias/alimentos.jpg";
+import artesaniaImg from "../assets/categorias/artesania.jpg";
+import gastronomiaImg from "../assets/categorias/gastronomia.jpg";
+import feriasImg from "../assets/categorias/ferias.jpg";
 
 const imagenesDestacadas = {
   1: mielImg,
@@ -120,25 +124,53 @@ function Inicio() {
           </div>
 
           <div className="categories">
-              <Link to="/productos?categoria=Alimentos" className="category-card category-link">
-                <span className="category-icon">🍎</span>
-                <span>Alimentos</span>
-              </Link>
+            <Link
+              to="/productos?categoria=Alimentos"
+              className="category-card category-link"
+            >
+              <img
+                src={alimentosImg}
+                alt="Alimentos de Chiloé"
+                className="category-photo"
+              />
+              <span>Alimentos</span>
+            </Link>
 
-              <Link to="/productos?categoria=Artesanía" className="category-card category-link">
-                <span className="category-icon">🧶</span>
-                <span>Artesanía</span>
-              </Link>
+            <Link
+              to="/productos?categoria=Artesanía"
+              className="category-card category-link"
+            >
+              <img
+                src={artesaniaImg}
+                alt="Artesanía de Chiloé"
+                className="category-photo"
+              />
+              <span>Artesanía</span>
+            </Link>
 
-              <Link to="/productos?categoria=Gastronomía" className="category-card category-link">
-                <span className="category-icon">🍲</span>
-                <span>Gastronomía</span>
-              </Link>
+            <Link
+              to="/productos?categoria=Gastronomía"
+              className="category-card category-link"
+            >
+              <img
+                src={gastronomiaImg}
+                alt="Gastronomía de Chiloé"
+                className="category-photo"
+              />
+              <span>Gastronomía</span>
+            </Link>
 
-              <Link to="/productos?categoria=Ferias" className="category-card category-link">
-                <span className="category-icon">📍</span>
-                <span>Ferias</span>
-              </Link>
+            <Link
+              to="/productos?categoria=Ferias"
+              className="category-card category-link"
+            >
+              <img
+                src={feriasImg}
+                alt="Ferias de Chiloé"
+                className="category-photo"
+              />
+              <span>Ferias</span>
+            </Link>
           </div>
         </section>
 
