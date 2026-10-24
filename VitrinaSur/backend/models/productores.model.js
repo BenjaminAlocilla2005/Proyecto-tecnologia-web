@@ -1,30 +1,14 @@
-const productores = [
-  {
-    id: 1,
-    nombre: "Productores de Chiloé",
-    comuna: "Castro",
-    descripcion: "Producción local de miel y alimentos artesanales",
-    categoria: "Alimentos",
-  },
-  {
-    id: 2,
-    nombre: "Artesanas de Chiloé",
-    comuna: "Dalcahue",
-    descripcion: "Elaboración de tejidos y artesanías tradicionales",
-    categoria: "Artesanía",
-  },
-  {
-    id: 3,
-    nombre: "Emprendimientos locales",
-    comuna: "Quellón",
-    descripcion: "Elaboración de mermeladas y productos típicos",
-    categoria: "Gastronomía",
-  },
-];
+const pool = require("../config/db");
 
-// Obtener todos los productores
-const obtenerTodos = () => {
-  return productores;
+// Obtener todos los productores desde PostgreSQL
+const obtenerTodos = async () => {
+  const resultado = await pool.query(
+    `SELECT id, nombre, comuna, descripcion, categoria
+     FROM productores
+     ORDER BY id`
+  );
+
+  return resultado.rows;
 };
 
 module.exports = {
