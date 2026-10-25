@@ -9,9 +9,9 @@ Vitrina comercial territorial de Chiloé: catálogo web de productos locales, pr
 
 ## Integrantes 
 
-| Benjamin Alocilla |
+Benjamin Alocilla 
 
-| Bryan Carcamo |
+Bryan Carcamo 
 
 ## Tecnologías
 
