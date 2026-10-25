@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { obtenerProductores } from "../services/api";
-import "../styles/Productores.css";
+import "../styles/productores.css";
 import productoresImg from "../assets/productores/productores-chiloe.jpg";
 import artesanasImg from "../assets/productores/artesanas-chiloe.jpg";
 import emprendimientosImg from "../assets/productores/emprendimientos-locales.jpg";
