@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Documentación técnica del proyecto VitrinaSur" />
+  <title>Documentación Técnica | VitrinaSur</title>
+  <style>
+    :root {
+      --verde: #236933;
+      --verde-oscuro: #194d25;
+      --amarillo: #f2c94c;
+      --fondo: #f7f8f4;
+      --texto: #202624;
+      --borde: #e0e5df;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--fondo);
+      color: var(--texto);
+      line-height: 1.7;
+    }
+
+    header {
+      background: var(--verde);
+      color: white;
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    header p { margin-bottom: 0; }
+
+    nav {
+      background: var(--verde-oscuro);
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: var(--amarillo);
+    }
+
+    main {
+      max-width: 1050px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    section {
+      background: white;
+      padding: 30px;
+      margin-bottom: 25px;
+      border: 1px solid var(--borde);
+      border-radius: 12px;
+      scroll-margin-top: 20px;
+    }
+
+    h2 {
+      color: var(--verde);
+      margin-top: 0;
+    }
+
+    h3 { color: var(--verde-oscuro); }
+
+    .boton {
+      display: inline-block;
+      padding: 12px 20px;
+      background: var(--amarillo);
+      color: var(--texto);
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      margin: 8px 8px 8px 0;
+    }
+
+    .boton:hover { background: #e5b936; }
+
+    .tabla-contenedor { overflow-x: auto; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid var(--borde);
+      text-align: left;
+    }
+
+    th {
+      background: var(--verde);
+      color: white;
+    }
+
+    code {
+      background: #eef3ed;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+
+    footer {
+      background: var(--verde-oscuro);
+      color: white;
+      text-align: center;
+      padding: 25px;
+    }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.8rem; }
+      nav { gap: 12px; }
+      nav a { font-size: 0.9rem; }
+      section { padding: 20px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>VitrinaSur</h1>
+    <p>Documentación Técnica y Auditoría de IA Generativa</p>
+    <p>Proyecto Web Full Stack — 2026</p>
+  </header>
+
+  <nav aria-label="Navegación de documentación">
+    <a href="#introduccion">Introducción</a>
+    <a href="#arquitectura">Arquitectura</a>
+    <a href="#basedatos">Base de datos</a>
+    <a href="#api">API REST</a>
+    <a href="#seguridad">Seguridad</a>
+    <a href="#auditoria">Auditoría IA</a>
+    <a href="#pruebas">Pruebas</a>
+    <a href="#enlaces">Enlaces</a>
+  </nav>
+
+  <main>
+    <section id="introduccion">
+      <h2>1. Introducción</h2>
+      <p>
+        VitrinaSur es una aplicación web orientada a la
+        exhibición de productos y productores locales de Chiloé.
+        Permite explorar categorías, consultar productos,
+        conocer productores y realizar prepedidos.
+      </p>
+      <p>
+        El proyecto utiliza una arquitectura Full Stack
+        con frontend React, backend Express y base de datos PostgreSQL.
+      </p>
+    </section>
+
+    <section id="arquitectura">
+      <h2>2. Arquitectura del sistema</h2>
+      <p>
+        VitrinaSur utiliza una arquitectura cliente-servidor
+        organizada en tres capas.
+      </p>
+      <ul>
+        <li><strong>Frontend:</strong> React y Vite, desplegados en Vercel.</li>
+        <li><strong>Backend:</strong> Node.js y Express, desplegados en Render.</li>
+        <li><strong>Persistencia:</strong> PostgreSQL, alojado en Neon.</li>
+      </ul>
+      <p>
+        El frontend consume endpoints HTTP de la API REST.
+        El backend procesa solicitudes y consulta la base de datos.
+      </p>
+    </section>
+
+    <section id="basedatos">
+      <h2>3. Modelo de base de datos</h2>
+      <p>
+        PostgreSQL almacena la información persistente del sistema.
+        Entre las entidades utilizadas se encuentran usuarios,
+        productos, productores y categorías.
+      </p>
+      <p>
+        Los productos contienen identificadores de categoría y
+        productor. Los usuarios disponen de roles para gestionar
+        los permisos de acceso.
+      </p>
+      <p>
+        El esquema completo, sus restricciones y relaciones
+        se incorporarán tras contrastarlo con las tablas reales.
+      </p>
+    </section>
+
+    <section id="api">
+      <h2>4. Catálogo de API REST</h2>
+      <p>
+        URL base pública:
+        <code>https://vitrinasur-backend.onrender.com/api</code>
+      </p>
+
+      <div class="tabla-contenedor">
+        <table>
+          <thead>
+            <tr>
+              <th>Método</th>
+              <th>Endpoint</th>
+              <th>Descripción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>GET</td>
+              <td>/productos</td>
+              <td>Consultar productos disponibles</td>
+            </tr>
+            <tr>
+              <td>GET</td>
+              <td>/categorias</td>
+              <td>Consultar categorías</td>
+            </tr>
+            <tr>
+              <td>GET</td>
+              <td>/productores</td>
+              <td>Consultar productores</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        El catálogo se ampliará con las operaciones CRUD,
+        autenticación, parámetros y códigos HTTP verificados.
+      </p>
+    </section>
+
+    <section id="seguridad">
+      <h2>5. Seguridad y autenticación</h2>
+      <p>
+        El sistema incorpora autenticación con JWT,
+        gestión de sesiones mediante cookies y autorización
+        basada en roles.
+      </p>
+      <p>
+        Las credenciales y secretos de configuración deben
+        permanecer fuera del repositorio público mediante
+        variables de entorno.
+      </p>
+    </section>
+
+    <section id="auditoria">
+      <h2>6. Auditoría de IA generativa</h2>
+      <p>
+        Durante el desarrollo se utilizó ChatGPT como herramienta
+        de asistencia para comprender errores, proponer cambios,
+        revisar componentes y apoyar la documentación.
+      </p>
+      <h3>Ejemplos de asistencia</h3>
+      <ul>
+        <li>Corrección de errores de navegación con React Router.</li>
+        <li>Apoyo en la integración del frontend con la API.</li>
+        <li>Diagnóstico de problemas de conexión con PostgreSQL.</li>
+        <li>Revisión de autenticación y validaciones.</li>
+        <li>Correcciones de diseño responsivo y estilos CSS.</li>
+      </ul>
+      <p>
+        Las soluciones propuestas se revisaron y probaron
+        durante el desarrollo. Las evidencias específicas
+        se incorporarán en la versión definitiva.
+      </p>
+    </section>
+
+    <section id="pruebas">
+      <h2>7. Pruebas y validación</h2>
+      <ul>
+        <li>Compilación de producción con Vite.</li>
+        <li>Pruebas de navegación SPA.</li>
+        <li>Validación de formularios y autenticación.</li>
+        <li>Pruebas de diseño móvil, tablet y escritorio.</li>
+        <li>Consultas HTTP a endpoints del backend.</li>
+        <li>Revisión de dependencias mediante npm audit.</li>
+      </ul>
+      <p>
+        Se comprobó que el endpoint público GET /api/productos
+        devuelve tres productos en formato JSON.
+      </p>
+    </section>
+
+    <section id="enlaces">
+      <h2>8. Enlaces oficiales</h2>
+      <p>Acceso a los recursos del proyecto:</p>
+
+      <a class="boton"
+         href="https://proyecto-tecnologia-web.vercel.app"
+         target="_blank" rel="noopener noreferrer">
+        Frontend
+      </a>
+
+      <a class="boton"
+         href="https://vitrinasur-backend.onrender.com/api/productos"
+         target="_blank" rel="noopener noreferrer">
+        API Backend
+      </a>
+
+      <a class="boton"
+         href="https://github.com/BenjaminAlocilla2005/Proyecto-tecnologia-web"
+         target="_blank" rel="noopener noreferrer">
+        GitHub
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    <p>VitrinaSur © 2026 — Documentación Técnica</p>
+  </footer>
+</body>
+</html>
