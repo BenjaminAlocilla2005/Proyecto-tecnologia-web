@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "../styles/Categorias.css";
+import "../styles/categorias.css";
 import artesaniaImg from "../assets/categorias/artesania.jpg";
 import gastronomiaImg from "../assets/categorias/gastronomia.jpg";
 import alimentosLocalesImg from "../assets/categorias/alimentos-locales.jpg";
