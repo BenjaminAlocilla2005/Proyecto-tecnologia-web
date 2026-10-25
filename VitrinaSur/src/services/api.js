@@ -1,5 +1,10 @@
-const API_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:3001/api";
+const API_URL = import.meta.env.VITE_API_URL;
+
+if (!API_URL) {
+  throw new Error(
+    "Falta configurar VITE_API_URL en las variables de entorno"
+  );
+}
 
 // Obtener productos desde Express
 export const obtenerProductos = async () => {
