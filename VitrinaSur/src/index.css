@@ -29,6 +29,12 @@ button {
 }
 
 :focus-visible {
-  outline: 3px solid #F0B448;
+  outline: 3px solid #236933;
   outline-offset: 2px;
+}
+
+/* Sobre fondos oscuros el foco debe ser claro */
+.producer-section :focus-visible,
+.footer :focus-visible {
+  outline-color: #ffffff;
 }

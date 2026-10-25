@@ -6,6 +6,9 @@ const cors = require('cors');
 const pool = require('./db');
 
 const productosRoutes = require('./routes/productosRoutes');
+const categoriasRoutes = require('./routes/categoriasRoutes');
+const productoresRoutes = require('./routes/productoresRoutes');
+const AppError = require('./utils/AppError');
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
@@ -26,8 +29,11 @@ app.use(
       // Permite solicitudes sin Origin, como algunas herramientas de servidor.
       if (!origin) return callback(null, true);
 
-      // Sin configuración, facilita el desarrollo local.
+      // Sin configuración, solo se permite en desarrollo local.
       if (origenesConfigurados.length === 0) {
+        if (process.env.NODE_ENV === 'production') {
+          return callback(new Error('Origen no permitido por CORS'));
+        }
         return callback(null, true);
       }
 
@@ -53,39 +59,9 @@ app.get('/api/health', (req, res) => {
 // Rutas de productos: GET, POST, PUT y DELETE.
 app.use('/api/productos', productosRoutes);
 
-// Obtener categorías.
-app.get('/api/categorias', async (req, res) => {
-  try {
-    const result = await pool.query(
-      'SELECT * FROM categorias'
-    );
-
-    return res.status(200).json(result.rows);
-  } catch (error) {
-    console.error('Error al obtener categorías:', error.message);
-
-    return res.status(500).json({
-      error: 'No se pudieron obtener las categorías.'
-    });
-  }
-});
-
-// Obtener productores.
-app.get('/api/productores', async (req, res) => {
-  try {
-    const result = await pool.query(
-      'SELECT * FROM productores'
-    );
-
-    return res.status(200).json(result.rows);
-  } catch (error) {
-    console.error('Error al obtener productores:', error.message);
-
-    return res.status(500).json({
-      error: 'No se pudieron obtener los productores.'
-    });
-  }
-});
+// Rutas de categorías y productores.
+app.use('/api/categorias', categoriasRoutes);
+app.use('/api/productores', productoresRoutes);
 
 // Ruta no encontrada.
 app.use((req, res) => {
@@ -94,12 +70,27 @@ app.use((req, res) => {
   });
 });
 
+// Errores de PostgreSQL provocados por datos del cliente, no del servidor
+const ERRORES_PG = {
+  '23502': [400, 'Falta un campo obligatorio.'],
+  '23503': [400, 'Referencia inválida (por ejemplo, la categoría no existe).'],
+  '23505': [409, 'Ya existe un registro con esos datos.'],
+  '23514': [400, 'Un valor no cumple las restricciones permitidas.'],
+  '22P02': [400, 'Formato de dato inválido.']
+};
+
 // Manejo centralizado de errores.
 app.use((error, req, res, next) => {
-  console.error('Error en la API:', error.message);
-
   if (res.headersSent) {
     return next(error);
+  }
+
+  // Errores esperados lanzados por los servicios (400, 404, ...)
+  if (error instanceof AppError) {
+    return res.status(error.status).json({
+      error: error.message,
+      detalles: error.detalles
+    });
   }
 
   if (error.type === 'entity.parse.failed') {
@@ -108,11 +99,25 @@ app.use((error, req, res, next) => {
     });
   }
 
+  if (error.type === 'entity.too.large') {
+    return res.status(413).json({
+      error: 'El cuerpo de la solicitud es demasiado grande.'
+    });
+  }
+
   if (error.message === 'Origen no permitido por CORS') {
     return res.status(403).json({
       error: 'Origen no autorizado.'
     });
   }
+
+  if (ERRORES_PG[error.code]) {
+    const [status, mensaje] = ERRORES_PG[error.code];
+    return res.status(status).json({ error: mensaje });
+  }
+
+  // El detalle va solo al log del servidor, nunca al cliente
+  console.error('Error en la API:', error);
 
   return res.status(500).json({
     error: 'Ocurrió un error interno en el servidor.'

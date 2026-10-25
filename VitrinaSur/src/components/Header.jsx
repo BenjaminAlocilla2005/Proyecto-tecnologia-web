@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import logo from '../assets/logo-vitrinasur.png'
 
 export default function Header() {
@@ -9,7 +9,7 @@ export default function Header() {
   return (
     <header className="header">
       <Link to="/" className="logo" onClick={cerrar}>
-        <img src={logo} alt="VitrinaSur" className="logo-img" />
+        <img src={logo} alt="VitrinaSur, ir al inicio" className="logo-img" />
       </Link>
 
       <nav
@@ -17,10 +17,10 @@ export default function Header() {
         className={`nav ${abierto ? 'open' : ''}`}
         aria-label="Navegación principal"
       >
-        <Link to="/productos" onClick={cerrar}>Productos</Link>
-        <a href="/#categorias" onClick={cerrar}>Categorías</a>
-        <Link to="/productores" onClick={cerrar}>Productores</Link>
-        <Link to="/agregar" onClick={cerrar}>Agregar Producto</Link>
+        <NavLink to="/productos" onClick={cerrar}>Productos</NavLink>
+        <Link to="/#categorias" onClick={cerrar}>Categorías</Link>
+        <NavLink to="/productores" onClick={cerrar}>Productores</NavLink>
+        <NavLink to="/agregar" onClick={cerrar}>Agregar Producto</NavLink>
       </nav>
 
       <button

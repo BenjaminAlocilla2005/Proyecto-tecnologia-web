@@ -17,6 +17,7 @@ html, body, #root {
 .nav { display: flex; gap: 30px; }
 .nav a { color: #202624; text-decoration: none; font-size: 15px; }
 .nav a:hover { color: #236933; }
+.nav a[aria-current="page"] { color: #236933; font-weight: 700; }
 .menu-button { display: none; border: none; background: none; font-size: 24px; }
 
 /* HERO */
@@ -33,6 +34,7 @@ html, body, #root {
 .search-icon { width: 22px; height: 22px; flex-shrink: 0; color: #5f6965; }
 .search-box input { flex: 1; min-width: 0; padding: 15px 15px 15px 0; border: none; outline: none; }
 .search-box button { padding: 0 25px; border: none; border-radius: 8px; background: #236933; color: white; }
+.search-box:focus-within { outline: 3px solid #236933; outline-offset: 2px; }
 
 /* SECTIONS */
 .section { padding: 70px 6%; max-width: 1300px; margin: 0 auto; }
@@ -56,6 +58,7 @@ html, body, #root {
 .producer { margin: 0; color: #5f6965; font-size: 14px; }
 .product-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: 20px; }
 .available { padding: 5px 8px; border-radius: 20px; background: #e2eee9; color: #236933; font-size: 12px; }
+.available.agotado { background: #f6dcda; color: #8c1d18; }
 
 /* IMÁGENES DE PRODUCTO */
 .product-image {
@@ -171,7 +174,6 @@ html, body, #root {
   .search-box button { min-height: 48px; }
   .section { padding: 50px 5%; }
   .categories { grid-template-columns: repeat(2, 1fr); }
-  .products { grid-template-columns: 1fr; }
   .section-header { align-items: start; }
   .section h2, .page-title { font-size: 26px; }
   .producer-section { padding: 60px 5%; }

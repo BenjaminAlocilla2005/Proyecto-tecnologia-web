@@ -1,90 +1,159 @@
-# Proyecto Web: VitrinaSur
-<p align="center"> <img src="./image.png" alt="Logo VitrinaSur" width="300"> </p>
-<p align="center"> <strong>Vitrina digital territorial para productores locales de Chiloé</strong> </p>
-<p align="center"> React · Vite · JavaScript · CSS3 · HTML5 </p>
+# VitrinaSur
 
----
+Vitrina comercial territorial de Chiloé: catálogo web de productos locales, productores y categorías.
 
-## 📌 1. Descripción del proyecto
-VitrinaSur es el nombre del proyecto de aplicación web móvil que estará enfocado en facilitar la visibilización y comercialización digital de productos y productores locales de Chiloé
+- **Asignatura:** Tecnologías Web y Móviles, 6° semestre, Ingeniería Civil en Informática, Universidad de Los Lagos
+- **Frontend (producción):** <URL de Vercel>
+- **Backend (producción):** <URL de Render>
+- **Base de datos:** PostgreSQL gestionado en Neon
 
-## 🎯 2. Problema identificado
-Chiloé tiene una oferta amplia de productos, oficios, gastronomía, artesanía y producción local; sin embargo, la oferta está fragmentada, dispersa y de muy baja digitalización comercial.
+## Integrantes y roles
 
-## 🚀 3. Objetivos
-### Objetivo general
-VitrinaSur tiene como objetivo presentar una vitrina digital territorial capaz de conectar productores locales de Chiloé con compradores, lo que facilita la exploración de productos, el contacto y los prepedidos con retiro coordinado y satisfactorio, así evitando que sea un ecommerce genérico.
+| Integrante | Rol |
+|---|---|
+| <Nombre> | <Frontend / Backend / Database-DevOps / QA> |
 
-### Objetivos específicos
-* Centralizar la exhibición de productos locales.
-* Facilitar la exploración y navegación por el catálogo.
-* Presentar información de productos y productores.
-* Incorporar un flujo de prepedido.
-* Mantener una identidad visual coherente.
-* Organizar el sistema mediante una arquitectura backend por capas.
+## Tecnologías
 
-## 🛍️ 4. Funcionalidades principales
-### Inicio — Vitrina de productos
-* Exploración de productos locales.
-* Presentación de la identidad visual.
-* Acceso al detalle de cada producto.
+| Capa | Tecnología |
+|---|---|
+| Frontend | React + Vite (SPA con React Router) |
+| Backend | Node.js + Express 5 |
+| Base de datos | PostgreSQL (driver `pg`, consultas parametrizadas) |
+| Despliegue | Vercel (frontend), Render (backend), Neon (PostgreSQL) |
 
-### Detalle del producto
-* Información y características del producto.
-* Precio y datos del productor, según corresponda.
-* Acceso a la acción de prepedido.
+## Arquitectura N-capas
 
-### Prepedido
-* Revisión del producto seleccionado.
-* Ingreso de los datos necesarios.
-* Coordinación del retiro con el productor.
+```
+React (componente) ──► Ruta ──► Controlador ──► Servicio ──► Modelo ──► PostgreSQL
+                                                                           │
+React (estado)   ◄── JSON ◄── Controlador ◄── Servicio ◄── Modelo ◄───────┘
+```
 
-> Las funcionalidades anteriores describen el alcance del proyecto. Su estado debe ser verificado acorde a la implementación actual.
+| Capa | Carpeta | Responsabilidad |
+|---|---|---|
+| Presentación / Rutas | `backend/routes` | Define los endpoints y los asocia a un controlador |
+| Controladores | `backend/controllers` | Recibe `req`, llama al servicio y responde con el código HTTP |
+| Lógica de negocio | `backend/services` | Valida datos, aplica reglas y lanza `AppError` (400, 404) |
+| Acceso a datos | `backend/models` | Únicas consultas SQL, siempre parametrizadas (`$1, $2...`) |
+| Transversal | `backend/utils/AppError.js`, `backend/index.js` | Errores esperados y manejo global centralizado de excepciones |
 
-## Integrantes
-- Bryan Cárcamo
-- Benjamín Alocilla
+**Ejemplo de flujo real (crear producto):**
+1. El formulario de `/agregar` valida los campos y envía `POST /api/productos`.
+2. `productosRoutes` dirige la petición a `createProducto`.
+3. `productosService.crear` valida nombre, precio y categoría, y obtiene o crea el productor (`buscarOCrear`).
+4. `productosModel.crear` ejecuta `INSERT ... VALUES ($1..$5)` en PostgreSQL.
+5. El servicio devuelve el producto con su productor y categoría, y el controlador responde `201` con JSON.
+6. Si algo falla, el manejador global de `index.js` responde con el código correcto sin exponer trazas internas.
 
-## 🧰 5. Stack tecnológico
+## Modelo de datos
 
-| Tecnología         | Uso                                  |
-| ------------------ | ------------------------------------ |
-| HTML5              | Estructura de la aplicación          |
-| CSS3               | Diseño y estilos responsivos         |
-| JavaScript         | Lógica e interacciones               |
-| React              | Desarrollo de componentes            |
-| Vite               | Servidor de desarrollo y compilación |
-| npm                | Administración de dependencias       |
-| Git                | Control de versiones                 |
-| GitHub             | Repositorio y colaboración           |
-| Visual Studio Code | Entorno de desarrollo                |
-| Figma              | Wireframes, storyboard y mockups     |
-| Canva              | Diseño del logotipo                  |
+```mermaid
+erDiagram
+    CATEGORIAS ||--o{ PRODUCTOS : clasifica
+    PRODUCTORES ||--o{ PRODUCTOS : elabora
 
-## Instalación
--> Clonar el repositorio:
-git clone https://github.com/Bryan05U/Proyecto-tecnologia-web
+    CATEGORIAS {
+        int id PK
+        varchar nombre UK "NOT NULL"
+        varchar icono
+    }
+    PRODUCTORES {
+        int id PK
+        varchar nombre "NOT NULL"
+        varchar lugar "NOT NULL"
+        varchar rubro "NOT NULL"
+    }
+    PRODUCTOS {
+        int id PK
+        varchar nombre "NOT NULL"
+        int precio "NOT NULL, CHECK precio > 0"
+        varchar imagen
+        int categoria_id FK "NOT NULL, ON DELETE RESTRICT"
+        int productor_id FK "ON DELETE SET NULL"
+    }
+```
 
-## Lo que se debe seguir después de Clonar el repositorio para la Instalación 
+- `UNIQUE (nombre, lugar)` en `productores` evita duplicados.
+- `CHECK (precio > 0)` impide precios inválidos aunque se omita el frontend.
+- `ON DELETE RESTRICT` protege las categorías con productos; `ON DELETE SET NULL` conserva el producto si se elimina su productor.
+- Script completo: [`backend/database/schema.sql`](backend/database/schema.sql).
 
-Asegurate tener instalado Node.js antes de realizar los siguientes pasos
+## API REST
 
-## Primer Paso:
+Base: `<URL del backend>/api`
 
-* Ingresar al proyecto:
-cd proyecto-tecnologia-web
+| Método | Ruta | Body / Parámetros | Respuestas |
+|---|---|---|---|
+| GET | `/health` | n/a | `200` estado de la API |
+| GET | `/productos` | Query opcional: `q` (texto en el nombre), `categoria_id` | `200` lista; `400` filtro inválido |
+| POST | `/productos` | `{ nombre*, precio*, categoria_id*, productor, lugar, imagen }` | `201` creado; `400` validación |
+| PUT | `/productos/:id` | Mismo body que POST | `200` actualizado; `400` datos o id inválidos; `404` no existe |
+| DELETE | `/productos/:id` | n/a | `200` eliminado; `400` id inválido; `404` no existe |
+| GET | `/categorias` | n/a | `200` lista |
+| GET | `/productores` | n/a | `200` lista |
+| POST | `/productores` | `{ nombre*, lugar*, rubro* }` | `201` creado; `400` validación; `409` duplicado |
 
-## Segundo Paso:
+`*` = obligatorio. Errores con formato `{ "error": "mensaje" }`. Los errores de PostgreSQL por datos del cliente se traducen a 400 o 409 y los inesperados a `500` con mensaje genérico (el detalle solo va al log del servidor).
 
-* Ingresar a la carpeta de VitrinaSur:
-cd VitrinaSur
+## Variables de entorno
 
-## Tercer Paso:
+Copiar `backend/.env.example` a `backend/.env` y `VitrinaSur/.env.example` a `VitrinaSur/.env`. **Nunca subir los `.env` al repositorio** (están en `.gitignore`).
 
-* Instalar dependencias:
+| Variable | Dónde | Descripción |
+|---|---|---|
+| `PORT` | Backend | Puerto del servidor (3000 por defecto) |
+| `NODE_ENV` | Backend | `development` o `production` |
+| `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME` | Backend (local) | Conexión a PostgreSQL local |
+| `DATABASE_URL` | Backend (producción) | Cadena de conexión de Neon (tiene prioridad sobre `DB_*`) |
+| `FRONTEND_URL` | Backend | Origen permitido por CORS, sin `/` final |
+| `VITE_API_URL` | Frontend | URL pública del backend, sin `/` final |
+
+## Ejecución local
+
+```bash
+# 1. Base de datos: ejecutar backend/database/schema.sql en PostgreSQL
+# 2. Backend
+cd backend
 npm install
+npm run dev        # http://localhost:3000
 
-## Cuarto Paso:
+# 3. Frontend (otra terminal)
+cd VitrinaSur
+npm install
+npm run dev        # http://localhost:5173
+```
 
-* Ejecutar servidor local:
-npm run dev
+## Seguridad
+
+- Credenciales solo en variables de entorno; `.env` ignorado por Git y `.env.example` documentado.
+- Consultas parametrizadas en todos los modelos (sin concatenación de SQL).
+- Validación en servidor (servicios) y en cliente (formularios).
+- CORS restringido al dominio del frontend en producción.
+- Límite de tamaño del body (`100kb`) y respuestas de error sin trazas internas.
+
+## Informe de co-creación y auditoría con IA generativa
+
+**Herramientas utilizadas:** Claude (Anthropic). <agregar otras si corresponde: Copilot, ChatGPT, etc.>
+
+**Uso declarado:** apoyo en la revisión de código, la refactorización a capas, el diseño del esquema SQL y la guía de despliegue. Las capturas de los prompts representativos están en el dossier técnico.
+
+**Bitácora de auditoría humana** (problemas detectados y cómo se resolvieron):
+
+| # | Problema detectado | Corrección aplicada |
+|---|---|---|
+| 1 | `db.js` solo soportaba variables `DB_*`: no conectaba a una base en la nube y no consideraba SSL | Se agregó soporte para `DATABASE_URL` con SSL en la cadena de conexión |
+| 2 | `index.js` importaba rutas y utilidades que no existían (`productoresRoutes`, `utils/AppError`), por lo que el servidor no arrancaba | Se crearon los archivos faltantes |
+| 3 | El controlador de productos mezclaba SQL, validación y respuesta HTTP | Refactor a Ruta → Controlador → Servicio → Modelo |
+| 4 | Modelo desnormalizado: `productor` y `lugar` repetidos como texto en `productos` | Tabla `productores` con llave foránea y `buscarOCrear` |
+| 5 | Faltaban restricciones de integridad | `CHECK (precio > 0)`, `NOT NULL` en `categoria_id`, `ON DELETE RESTRICT/SET NULL`, `UNIQUE` |
+| 6 | Datos incoherentes: papas y cerveza estaban en la categoría Quesos | Nuevas categorías Agricultura y Bebidas |
+| 7 | Error `42P01` (relación inexistente): el código nuevo corría sobre un esquema desactualizado | Se reejecutó `schema.sql` y se versionó en `backend/database` |
+| 8 | <agregar los hallazgos propios del equipo> | <corrección> |
+
+**Responsabilidad:** todo el código fue revisado, probado y es explicable por el equipo durante la defensa técnica.
+
+## Limitaciones conocidas
+
+- Las imágenes se empaquetan con el frontend (`src/assets`); un producto nuevo solo muestra imagen si el archivo ya existe en el repositorio. Mejora futura: almacenamiento externo (Cloudinary o Supabase Storage).
+- El plan gratuito de Render duerme el servicio tras un tiempo de inactividad: la primera petición puede tardar unos segundos.

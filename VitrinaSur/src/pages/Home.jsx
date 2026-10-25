@@ -50,7 +50,10 @@ export default function Home() {
                 <line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
               <input
-                type="text"
+                id="busqueda"
+                name="busqueda"
+                type="search"
+                autoComplete="off"
                 placeholder="¿Qué producto estás buscando?"
                 aria-label="Buscar productos"
                 value={busqueda}
