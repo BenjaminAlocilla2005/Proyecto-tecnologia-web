@@ -7,10 +7,10 @@ Vitrina comercial territorial de Chiloé: catálogo web de productos locales, pr
 - **Backend (producción):** <URL de Render>
 - **Base de datos:** PostgreSQL gestionado en Neon
 
-## Integrantes y roles
+## Integrantes 
 
-| Integrantes |
 | Benjamin Alocilla |
+
 | Bryan Carcamo |
 
 ## Tecnologías
