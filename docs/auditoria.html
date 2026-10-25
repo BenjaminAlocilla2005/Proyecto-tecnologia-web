@@ -1,0 +1,412 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Auditoría de inteligencia artificial generativa del proyecto VitrinaSur">
+  <title>Auditoría de IA | VitrinaSur</title>
+
+  <style>
+    :root {
+      --verde: #236933;
+      --verde-oscuro: #194d25;
+      --amarillo: #f2c94c;
+      --fondo: #f7f8f4;
+      --texto: #202624;
+      --borde: #dfe5dc;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--fondo);
+      color: var(--texto);
+      font-family: Arial, sans-serif;
+      line-height: 1.7;
+    }
+
+    header {
+      background: var(--verde);
+      color: white;
+      padding: 48px 20px;
+      text-align: center;
+    }
+
+    header h1 { margin: 0; }
+
+    nav {
+      background: var(--verde-oscuro);
+      padding: 16px;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 12px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover { color: var(--amarillo); }
+
+    main {
+      max-width: 1050px;
+      margin: 35px auto;
+      padding: 0 20px;
+    }
+
+    section {
+      background: white;
+      padding: 28px;
+      margin-bottom: 24px;
+      border: 1px solid var(--borde);
+      border-radius: 12px;
+    }
+
+    h2, h3 { color: var(--verde); }
+
+    .tabla-contenedor { overflow-x: auto; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid var(--borde);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--verde);
+      color: white;
+    }
+
+    .evidencia {
+      background: #eef5ed;
+      border-left: 4px solid var(--verde);
+      padding: 16px;
+      margin: 15px 0;
+      border-radius: 4px;
+    }
+
+    code {
+      background: #edf2ed;
+      padding: 3px 6px;
+      border-radius: 4px;
+      overflow-wrap: anywhere;
+    }
+
+    .boton {
+      display: inline-block;
+      background: var(--amarillo);
+      color: var(--texto);
+      padding: 12px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer {
+      background: var(--verde-oscuro);
+      color: white;
+      text-align: center;
+      padding: 22px;
+    }
+
+    @media (max-width: 600px) {
+      section { padding: 18px; }
+      header h1 { font-size: 1.8rem; }
+      nav a { display: inline-block; margin: 5px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Auditoría de IA Generativa</h1>
+    <p>Proyecto VitrinaSur — 2026</p>
+    <p>Registro de asistencia, errores, correcciones y validación humana</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Documentación principal</a>
+    <a href="#casos">Casos auditados</a>
+    <a href="#riesgos">Riesgos</a>
+    <a href="#conclusiones">Conclusiones</a>
+  </nav>
+
+  <main>
+    <section>
+      <h2>1. Objetivo de la auditoría</h2>
+      <p>
+        Esta auditoría documenta el uso de ChatGPT como
+        herramienta de inteligencia artificial generativa
+        durante el desarrollo de VitrinaSur.
+      </p>
+      <p>
+        Su objetivo es identificar los ámbitos en los que
+        se utilizó asistencia de IA, los problemas abordados,
+        las soluciones propuestas y las pruebas realizadas
+        para verificar los resultados.
+      </p>
+    </section>
+
+    <section>
+      <h2>2. Herramienta utilizada</h2>
+      <p><strong>Herramienta:</strong> ChatGPT, de OpenAI.</p>
+      <p>
+        <strong>Uso:</strong> asistencia en programación,
+        depuración, integración, diseño, documentación
+        y explicación de conceptos técnicos.
+      </p>
+      <p>
+        La herramienta se utilizó como apoyo al desarrollo,
+        no como sustituto de las pruebas de funcionamiento
+        ni de la revisión del código.
+      </p>
+    </section>
+
+    <section id="casos">
+      <h2>3. Casos de uso y validación</h2>
+
+      <h3>Caso 1 — Navegación React Router</h3>
+      <p>
+        <strong>Problema:</strong> algunas rutas no funcionaban
+        y se presentó un error por utilizar Route fuera de Routes.
+      </p>
+      <p>
+        <strong>Asistencia de IA:</strong> revisión de la
+        configuración de React Router y propuestas de corrección.
+      </p>
+      <div class="evidencia">
+        <strong>Validación:</strong>
+        se realizaron pruebas de navegación SPA,
+        acceso a productos, productores, categorías
+        y detalle de productos.
+      </div>
+
+      <h3>Caso 2 — Integración frontend y backend</h3>
+      <p>
+        <strong>Problema:</strong> inicialmente algunas vistas
+        utilizaban datos locales y no consultaban la API.
+      </p>
+      <p>
+        <strong>Asistencia de IA:</strong> orientación para
+        crear funciones de consulta y conectar componentes
+        React con endpoints Express.
+      </p>
+      <div class="evidencia">
+        <strong>Validación:</strong>
+        se comprobaron respuestas JSON de productos,
+        productores y categorías.
+      </div>
+
+      <h3>Caso 3 — PostgreSQL</h3>
+      <p>
+        <strong>Problema:</strong> dificultades de instalación,
+        autenticación, conexión y configuración de variables.
+      </p>
+      <p>
+        <strong>Asistencia de IA:</strong> interpretación de
+        errores de PostgreSQL, orientación sobre psql
+        y configuración del backend.
+      </p>
+      <div class="evidencia">
+        <strong>Validación:</strong>
+        se comprobó la conexión local y la existencia
+        de cinco tablas: usuarios, productos,
+        productores, categorías y prepedidos.
+      </div>
+
+      <h3>Caso 4 — Autenticación y autorización</h3>
+      <p>
+        <strong>Problema:</strong> necesidad de implementar
+        registro, inicio de sesión, cierre de sesión
+        y restricciones de acceso.
+      </p>
+      <p>
+        <strong>Asistencia de IA:</strong> revisión de
+        middleware JWT, gestión de cookies,
+        contexto de autenticación y roles.
+      </p>
+      <div class="evidencia">
+        <strong>Validación:</strong>
+        se probaron respuestas HTTP de autenticación,
+        autorización y funcionamiento de la sesión.
+      </div>
+
+      <h3>Caso 5 — Diseño responsivo</h3>
+      <p>
+        <strong>Problema:</strong> errores de alineación,
+        contraste de títulos, botones y menú móvil.
+      </p>
+      <p>
+        <strong>Asistencia de IA:</strong> propuestas de
+        cambios CSS y revisión de componentes.
+      </p>
+      <div class="evidencia">
+        <strong>Validación:</strong>
+        se realizaron pruebas en vistas móviles,
+        tablet y escritorio, manteniendo el diseño
+        visual de VitrinaSur.
+      </div>
+
+      <h3>Caso 6 — Compilación y despliegue</h3>
+      <p>
+        <strong>Problema:</strong> errores de importación
+        por diferencias entre mayúsculas y minúsculas
+        en nombres de archivos CSS.
+      </p>
+      <p>
+        <strong>Asistencia de IA:</strong> diagnóstico de
+        errores de compilación y revisión de rutas
+        de importación.
+      </p>
+      <div class="evidencia">
+        <strong>Validación:</strong>
+        se ejecutó <code>npm run build</code> correctamente
+        y se publicó el proyecto.
+      </div>
+    </section>
+
+    <section>
+      <h2>4. Registro resumido de auditoría</h2>
+
+      <div class="tabla-contenedor">
+        <table>
+          <thead>
+            <tr>
+              <th>Área</th>
+              <th>Problema</th>
+              <th>Acción asistida</th>
+              <th>Comprobación</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>React Router</td>
+              <td>Rutas incorrectas</td>
+              <td>Revisión de configuración</td>
+              <td>Navegación SPA</td>
+            </tr>
+            <tr>
+              <td>API REST</td>
+              <td>Datos locales</td>
+              <td>Integración HTTP</td>
+              <td>Respuestas JSON</td>
+            </tr>
+            <tr>
+              <td>PostgreSQL</td>
+              <td>Errores de conexión</td>
+              <td>Diagnóstico y configuración</td>
+              <td>Consultas SQL</td>
+            </tr>
+            <tr>
+              <td>Autenticación</td>
+              <td>Gestión de sesión</td>
+              <td>JWT y cookies</td>
+              <td>Pruebas HTTP</td>
+            </tr>
+            <tr>
+              <td>Frontend</td>
+              <td>Problemas responsivos</td>
+              <td>Correcciones CSS</td>
+              <td>Pruebas visuales</td>
+            </tr>
+            <tr>
+              <td>Despliegue</td>
+              <td>Errores de compilación</td>
+              <td>Corrección de imports</td>
+              <td>Build exitoso</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="riesgos">
+      <h2>5. Riesgos y limitaciones de la IA</h2>
+
+      <ul>
+        <li>
+          Las respuestas generadas pueden contener
+          código incorrecto o incompleto.
+        </li>
+        <li>
+          Las recomendaciones pueden no coincidir
+          con la estructura real del proyecto.
+        </li>
+        <li>
+          Una solución funcional localmente
+          puede fallar en producción.
+        </li>
+        <li>
+          Las configuraciones de seguridad requieren
+          revisión adicional.
+        </li>
+        <li>
+          No deben compartirse contraseñas,
+          tokens ni archivos de entorno privados.
+        </li>
+      </ul>
+
+      <p>
+        Para reducir estos riesgos se utilizaron
+        pruebas de compilación, consultas HTTP,
+        revisión de consola, comprobaciones SQL
+        y pruebas de interfaz.
+      </p>
+    </section>
+
+    <section>
+      <h2>6. Responsabilidad y validación humana</h2>
+
+      <p>
+        La IA generativa se utilizó como herramienta
+        de apoyo técnico. Las modificaciones al proyecto
+        fueron aplicadas y comprobadas durante
+        el proceso de desarrollo.
+      </p>
+
+      <p>
+        La existencia de una sugerencia de IA
+        no constituye evidencia suficiente de que
+        una funcionalidad sea correcta.
+        Se requiere comprobar el comportamiento
+        del sistema y revisar los resultados.
+      </p>
+    </section>
+
+    <section id="conclusiones">
+      <h2>7. Conclusiones</h2>
+
+      <p>
+        La utilización de ChatGPT permitió apoyar
+        la resolución de problemas de navegación,
+        integración, base de datos, autenticación,
+        diseño responsivo y despliegue.
+      </p>
+
+      <p>
+        El proceso mostró la importancia de combinar
+        asistencia de inteligencia artificial con
+        revisión humana, pruebas técnicas y
+        documentación verificable.
+      </p>
+
+      <a class="boton" href="index.html">
+        Volver a la documentación principal
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    <p>VitrinaSur © 2026 — Auditoría de IA Generativa</p>
+  </footer>
+</body>
+</html>

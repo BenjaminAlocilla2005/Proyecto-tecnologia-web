@@ -1,10 +1,12 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Documentación técnica del proyecto VitrinaSur" />
+  <meta name="description" content="Documentación técnica y auditoría de IA generativa del proyecto VitrinaSur" />
   <title>Documentación Técnica | VitrinaSur</title>
+
   <style>
     :root {
       --verde: #236933;
@@ -15,9 +17,13 @@
       --borde: #e0e5df;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       margin: 0;
@@ -39,7 +45,9 @@
       font-size: 2.5rem;
     }
 
-    header p { margin-bottom: 0; }
+    header p {
+      margin-bottom: 0;
+    }
 
     nav {
       background: var(--verde-oscuro);
@@ -80,7 +88,9 @@
       margin-top: 0;
     }
 
-    h3 { color: var(--verde-oscuro); }
+    h3 {
+      color: var(--verde-oscuro);
+    }
 
     .boton {
       display: inline-block;
@@ -93,9 +103,13 @@
       margin: 8px 8px 8px 0;
     }
 
-    .boton:hover { background: #e5b936; }
+    .boton:hover {
+      background: #e5b936;
+    }
 
-    .tabla-contenedor { overflow-x: auto; }
+    .tabla-contenedor {
+      overflow-x: auto;
+    }
 
     table {
       width: 100%;
@@ -118,6 +132,7 @@
       background: #eef3ed;
       padding: 2px 5px;
       border-radius: 4px;
+      overflow-wrap: anywhere;
     }
 
     footer {
@@ -128,15 +143,27 @@
     }
 
     @media (max-width: 600px) {
-      header h1 { font-size: 1.8rem; }
-      nav { gap: 12px; }
-      nav a { font-size: 0.9rem; }
-      section { padding: 20px; }
+      header h1 {
+        font-size: 1.8rem;
+      }
+
+      nav {
+        gap: 12px;
+      }
+
+      nav a {
+        font-size: 0.9rem;
+      }
+
+      section {
+        padding: 20px;
+      }
     }
   </style>
 </head>
 
 <body>
+
   <header>
     <h1>VitrinaSur</h1>
     <p>Documentación Técnica y Auditoría de IA Generativa</p>
@@ -155,14 +182,17 @@
   </nav>
 
   <main>
+
     <section id="introduccion">
       <h2>1. Introducción</h2>
+
       <p>
         VitrinaSur es una aplicación web orientada a la
         exhibición de productos y productores locales de Chiloé.
         Permite explorar categorías, consultar productos,
         conocer productores y realizar prepedidos.
       </p>
+
       <p>
         El proyecto utiliza una arquitectura Full Stack
         con frontend React, backend Express y base de datos PostgreSQL.
@@ -171,15 +201,27 @@
 
     <section id="arquitectura">
       <h2>2. Arquitectura del sistema</h2>
+
       <p>
         VitrinaSur utiliza una arquitectura cliente-servidor
         organizada en tres capas.
       </p>
+
       <ul>
-        <li><strong>Frontend:</strong> React y Vite, desplegados en Vercel.</li>
-        <li><strong>Backend:</strong> Node.js y Express, desplegados en Render.</li>
-        <li><strong>Persistencia:</strong> PostgreSQL, alojado en Neon.</li>
+        <li>
+          <strong>Frontend:</strong>
+          React y Vite, desplegados en Vercel.
+        </li>
+        <li>
+          <strong>Backend:</strong>
+          Node.js y Express, desplegados en Render.
+        </li>
+        <li>
+          <strong>Persistencia:</strong>
+          PostgreSQL, alojado en Neon.
+        </li>
       </ul>
+
       <p>
         El frontend consume endpoints HTTP de la API REST.
         El backend procesa solicitudes y consulta la base de datos.
@@ -187,25 +229,192 @@
     </section>
 
     <section id="basedatos">
-      <h2>3. Modelo de base de datos</h2>
+      <h2>3. Modelo de base de datos PostgreSQL</h2>
+
       <p>
-        PostgreSQL almacena la información persistente del sistema.
-        Entre las entidades utilizadas se encuentran usuarios,
-        productos, productores y categorías.
+        VitrinaSur utiliza PostgreSQL para almacenar usuarios,
+        categorías, productores, productos y prepedidos.
+        El esquema local contiene cinco tablas.
       </p>
+
+      <h3>3.1 Tablas del sistema</h3>
+
+      <div class="tabla-contenedor">
+        <table>
+          <thead>
+            <tr>
+              <th>Tabla</th>
+              <th>Clave primaria</th>
+              <th>Descripción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>usuarios</td>
+              <td>id</td>
+              <td>Cuentas y roles de acceso.</td>
+            </tr>
+            <tr>
+              <td>categorias</td>
+              <td>id</td>
+              <td>Clasificación de productos.</td>
+            </tr>
+            <tr>
+              <td>productores</td>
+              <td>id</td>
+              <td>Información de productores locales.</td>
+            </tr>
+            <tr>
+              <td>productos</td>
+              <td>id</td>
+              <td>Catálogo de productos.</td>
+            </tr>
+            <tr>
+              <td>prepedidos</td>
+              <td>id</td>
+              <td>Solicitudes y valores de prepedidos.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>3.2 Relaciones entre tablas</h3>
+
+      <ul>
+        <li>
+          <strong>Categorías → Productos (1:N):</strong>
+          productos.categoria_id referencia categorias.id.
+        </li>
+        <li>
+          <strong>Productores → Productos (1:N):</strong>
+          productos.productor_id referencia productores.id.
+        </li>
+        <li>
+          <strong>Productos → Prepedidos (1:N):</strong>
+          prepedidos.producto_id referencia productos.id.
+        </li>
+      </ul>
+
       <p>
-        Los productos contienen identificadores de categoría y
-        productor. Los usuarios disponen de roles para gestionar
-        los permisos de acceso.
+        La tabla usuarios almacena información de autenticación
+        y roles. No se ha confirmado una clave foránea
+        que la relacione directamente con las demás tablas.
       </p>
+
+      <h3>3.3 Restricciones de integridad</h3>
+
+      <ul>
+        <li>Las cinco tablas utilizan claves primarias id.</li>
+        <li>El nombre de cada categoría debe ser único.</li>
+        <li>La cantidad de un prepedido debe estar entre 1 y 100.</li>
+        <li>El precio unitario y el total no pueden ser negativos.</li>
+        <li>
+          El estado inicial de un prepedido es
+          <code>pendiente</code>.
+        </li>
+        <li>
+          La fecha del prepedido utiliza
+          <code>CURRENT_TIMESTAMP</code> por defecto.
+        </li>
+      </ul>
+
+      <h3>3.4 Campos de productores</h3>
+
       <p>
-        El esquema completo, sus restricciones y relaciones
-        se incorporarán tras contrastarlo con las tablas reales.
+        La tabla productores contiene:
+        id, nombre, descripcion, ubicacion,
+        imagen, comuna y categoria.
+      </p>
+
+      <p>
+        El identificador y el nombre son obligatorios.
+        El identificador es la clave primaria.
+      </p>
+
+      <h3>3.5 Campos de categorías</h3>
+
+      <p>
+        La tabla categorias contiene:
+        id, nombre y descripcion.
+      </p>
+
+      <p>
+        El nombre es obligatorio y posee una restricción
+        de unicidad.
+      </p>
+
+      <h3>3.6 Campos de prepedidos</h3>
+
+      <div class="tabla-contenedor">
+        <table>
+          <thead>
+            <tr>
+              <th>Campo</th>
+              <th>Tipo</th>
+              <th>Descripción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>integer</td>
+              <td>Clave primaria.</td>
+            </tr>
+            <tr>
+              <td>producto_id</td>
+              <td>integer</td>
+              <td>Referencia al producto.</td>
+            </tr>
+            <tr>
+              <td>nombre</td>
+              <td>varchar(150)</td>
+              <td>Nombre del cliente.</td>
+            </tr>
+            <tr>
+              <td>telefono</td>
+              <td>varchar(30)</td>
+              <td>Teléfono de contacto.</td>
+            </tr>
+            <tr>
+              <td>cantidad</td>
+              <td>integer</td>
+              <td>Unidades solicitadas.</td>
+            </tr>
+            <tr>
+              <td>fecha</td>
+              <td>timestamp</td>
+              <td>Fecha de registro.</td>
+            </tr>
+            <tr>
+              <td>estado</td>
+              <td>varchar(30)</td>
+              <td>Estado del prepedido.</td>
+            </tr>
+            <tr>
+              <td>precio_unitario</td>
+              <td>numeric(12,2)</td>
+              <td>Precio por unidad.</td>
+            </tr>
+            <tr>
+              <td>total</td>
+              <td>numeric(12,2)</td>
+              <td>Importe total.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        <strong>Nota:</strong>
+        esta estructura corresponde a PostgreSQL local.
+        Queda pendiente verificar su equivalencia
+        con la base de producción en Neon.
       </p>
     </section>
 
     <section id="api">
       <h2>4. Catálogo de API REST</h2>
+
       <p>
         URL base pública:
         <code>https://vitrinasur-backend.onrender.com/api</code>
@@ -224,21 +433,22 @@
             <tr>
               <td>GET</td>
               <td>/productos</td>
-              <td>Consultar productos disponibles</td>
+              <td>Consultar productos disponibles.</td>
             </tr>
             <tr>
               <td>GET</td>
               <td>/categorias</td>
-              <td>Consultar categorías</td>
+              <td>Consultar categorías.</td>
             </tr>
             <tr>
               <td>GET</td>
               <td>/productores</td>
-              <td>Consultar productores</td>
+              <td>Consultar productores.</td>
             </tr>
           </tbody>
         </table>
       </div>
+
       <p>
         El catálogo se ampliará con las operaciones CRUD,
         autenticación, parámetros y códigos HTTP verificados.
@@ -247,26 +457,38 @@
 
     <section id="seguridad">
       <h2>5. Seguridad y autenticación</h2>
+
       <p>
         El sistema incorpora autenticación con JWT,
         gestión de sesiones mediante cookies y autorización
         basada en roles.
       </p>
+
       <p>
-        Las credenciales y secretos de configuración deben
-        permanecer fuera del repositorio público mediante
-        variables de entorno.
+        Las credenciales y secretos de configuración
+        deben permanecer fuera del repositorio público
+        mediante variables de entorno.
+      </p>
+
+      <p>
+        El backend dispone de middleware para verificar
+        la autenticación y restringir determinadas operaciones
+        administrativas.
       </p>
     </section>
 
     <section id="auditoria">
       <h2>6. Auditoría de IA generativa</h2>
+
       <p>
-        Durante el desarrollo se utilizó ChatGPT como herramienta
-        de asistencia para comprender errores, proponer cambios,
-        revisar componentes y apoyar la documentación.
+        Durante el desarrollo se utilizó ChatGPT como
+        herramienta de asistencia para comprender errores,
+        proponer cambios, revisar componentes y apoyar
+        la documentación.
       </p>
-      <h3>Ejemplos de asistencia</h3>
+
+      <h3>6.1 Ejemplos de asistencia</h3>
+
       <ul>
         <li>Corrección de errores de navegación con React Router.</li>
         <li>Apoyo en la integración del frontend con la API.</li>
@@ -274,15 +496,26 @@
         <li>Revisión de autenticación y validaciones.</li>
         <li>Correcciones de diseño responsivo y estilos CSS.</li>
       </ul>
+
+      <h3>6.2 Verificación humana</h3>
+
       <p>
         Las soluciones propuestas se revisaron y probaron
-        durante el desarrollo. Las evidencias específicas
-        se incorporarán en la versión definitiva.
+        durante el desarrollo mediante pruebas de navegación,
+        compilación, solicitudes HTTP y consultas a la base
+        de datos.
+      </p>
+
+      <p>
+        Las evidencias específicas de los problemas,
+        correcciones y resultados se incorporarán
+        en la versión definitiva.
       </p>
     </section>
 
     <section id="pruebas">
       <h2>7. Pruebas y validación</h2>
+
       <ul>
         <li>Compilación de producción con Vite.</li>
         <li>Pruebas de navegación SPA.</li>
@@ -291,38 +524,57 @@
         <li>Consultas HTTP a endpoints del backend.</li>
         <li>Revisión de dependencias mediante npm audit.</li>
       </ul>
+
       <p>
-        Se comprobó que el endpoint público GET /api/productos
-        devuelve tres productos en formato JSON.
+        Se comprobó que el endpoint público
+        GET /api/productos devuelve tres productos
+        en formato JSON.
       </p>
     </section>
 
     <section id="enlaces">
       <h2>8. Enlaces oficiales</h2>
+
       <p>Acceso a los recursos del proyecto:</p>
 
-      <a class="boton"
-         href="https://proyecto-tecnologia-web.vercel.app"
-         target="_blank" rel="noopener noreferrer">
+      <a
+        class="boton"
+        href="https://proyecto-tecnologia-web.vercel.app"
+        target="_blank"
+        rel="noopener noreferrer">
         Frontend
       </a>
 
-      <a class="boton"
-         href="https://vitrinasur-backend.onrender.com/api/productos"
-         target="_blank" rel="noopener noreferrer">
+      <a
+        class="boton"
+        href="https://vitrinasur-backend.onrender.com/api/productos"
+        target="_blank"
+        rel="noopener noreferrer">
         API Backend
       </a>
 
-      <a class="boton"
-         href="https://github.com/BenjaminAlocilla2005/Proyecto-tecnologia-web"
-         target="_blank" rel="noopener noreferrer">
+      <a
+        class="boton"
+        href="https://github.com/BenjaminAlocilla2005/Proyecto-tecnologia-web"
+        target="_blank"
+        rel="noopener noreferrer">
         GitHub
       </a>
+
+      <a
+        class="boton"
+        href="https://bryan05u.github.io/Proyecto-tecnologia-web/"
+        target="_blank"
+        rel="noopener noreferrer">
+        Documentación Web
+      </a>
     </section>
+
   </main>
 
   <footer>
     <p>VitrinaSur © 2026 — Documentación Técnica</p>
   </footer>
+
 </body>
 </html>
