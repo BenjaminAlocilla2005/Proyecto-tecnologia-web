@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Dependencias
 node_modules/
 **/node_modules/
@@ -14,3 +15,8 @@ dist/
 # Archivos temporales
 *.log
 .DS_Store
+=======
+node_modules/
+dist/
+.env
+>>>>>>> Rama-Benjamin
