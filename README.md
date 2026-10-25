@@ -218,7 +218,7 @@ El archivo `.env.example` debe documentar las variables necesarias para ejecutar
 Ejemplo para una futura conexión con el backend:
 
 ```dotenv
-VITE_API_URL=http://localhost:3000/api
+VITE_API_URL=http://localhost:3001/api
 ```
 
 La URL debe coincidir con la dirección real de la API cuando se implemente.
