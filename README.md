@@ -9,9 +9,9 @@ Vitrina comercial territorial de Chiloé: catálogo web de productos locales, pr
 
 ## Integrantes y roles
 
-| Integrante | Rol |
-|---|---|
-| <Nombre> | <Frontend / Backend / Database-DevOps / QA> |
+| Integrantes |
+| Benjamin Alocilla |
+| Bryan Carcamo |
 
 ## Tecnologías
 
